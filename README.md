@@ -1,6 +1,9 @@
 **INFO:**
+
     Application Name: android-toolkit 
+    
     Version: Alpha 0.5.3.1
+    
     Release Date:
 
 **NOTES:**
