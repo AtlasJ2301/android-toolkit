@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Android Toolkit</title>
+    <link rel="icon" href="./icon.png">
+    <meta name="viewport" content="width=device-width">
+    <style>
+      @font-face {
+        font-family: "android7";
+        src: url("./Android7.ttf");
+      }
+      
+      .title {
+        font-family: "android7";
+        font-size: 25px;
+        white-space: nowrap;
+        text-align: center;
+        margin: 0;
+        color: white;
+      }
+
+      .header {
+        overflow: hidden;
+        background-color: green;
+        padding: 20px;
+      }
+
+      button {
+        font-family: "android7";
+        border-radius: 20px;
+        font-size: 45px;
+        margin-top: 20px;
+        background-color: green;
+        padding: 25px;
+        white-space: nowrap;
+      }
+
+      .btn-container {
+        overflow: auto;
+        position: relative;
+        top: 0;
+        margin-left: 20%;
+        transform: none;
+      }
+
+      .btn:hover {
+        background-color: #d1e58c;
+        transition-duration: 400ms;
+        transform: scale(1.03)
+      }
+
+      .btn {
+        float: left;
+        width: 300px;
+        margin-right: 10px;
+      }
+
+      body {
+        min-width: 600px;
+        margin: 0;
+        background-color:  #a4c639;
+      }
+
+      .icon {
+        float: left;
+        margin: 0;
+        font-size: 24px;
+      }
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="icon">
+      <img src="icon.png" width="60">
+    </div>
+
+    <div class="title"> 
+      <h1>Android Toolkit</h1>
+    </div>
+  </div>
+  <div class="btn-container">
+    <form action="/cgi-bin/myscript.sh" method="POST">
+      <button class="btn">Button 1</button>
+    </form>
+    <button class="btn">Button 2</button>
+    <button class="btn">Button 3</button>
+    <button class="btn">Button 4</button>
+  </div>
+</body>
+</html>
