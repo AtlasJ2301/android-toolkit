@@ -14,7 +14,8 @@ ans=$(
         --button "Implement SCRCPY":23 \
         --button "Configure for Release":24 \
         --button "Run a Command":25 \
-        --button "Compile atk":26
+        --button "Compile atk":26 \
+        --button "Chmod all":27
 
 )
 

@@ -7,6 +7,7 @@
     Release Date:
 
 **NOTES:**
+
     SCRCPY - If you wish for SCRCPY capabilities, you must compile the source code and obtain the SCRCPY files yourself. 
     To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, 
     to the SCRCPY link folder in the projects root folder before compiling.
@@ -42,6 +43,8 @@
 
         - Made compiler automatically include version name in appimage
 
+        - Allowed selection of architype version
+
     - install
 
         - added gui sudo prompt
@@ -57,7 +60,9 @@
         - Github: AtlasJ2301
 
 **DEVELOPMENT RULES:**
+
     - AI USAGE:
+
         - AI is only to be used to help with coding,
         not to code for you. It is okay to use LLM's
         to understand a concept while developing, 

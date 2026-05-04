@@ -1111,6 +1111,8 @@ pageTwo() {
 
     if [[ "$ans" = '20' ]]; then # Debug
 
+        chmod +x ./usr/src/debugGUI.sh
+
         ./usr/src/debugGUI.sh
 
         ans="$(cat ./usr/var/ans)"
@@ -1199,6 +1201,17 @@ pageTwo() {
                     ./usr/src/compile.sh
 
                     exit
+
+                fi
+
+                if [[ "$ans" = 27 ]]; then # chmod all
+
+                    chmod +x ./*.sh
+                    chmod +x ./usr/src/*.sh
+                    chmod +x ./usr/bin/yad
+                    chmod +x ./usr/bin/adb
+                    chmod +x ./usr/bin/compile.AppImage
+                    chmod +x ./usr/bin/android-toolkit
 
                 fi
             
