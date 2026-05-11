@@ -27,6 +27,10 @@
 
     ADB - https://developer.android.com/tools/adb
 
+**INSTALLATION**
+
+    curl - 
+
 **RELEASE NOTES:**
 
     - indexGUI.sh
