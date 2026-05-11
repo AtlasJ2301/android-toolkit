@@ -55,6 +55,9 @@
 
         - added gui sudo prompt
 
+    - curl.sh
+
+        - Still working
 **DEPRECATED FILES:**
 
     - As of Beta 0.3.4, index.sh is deprecated

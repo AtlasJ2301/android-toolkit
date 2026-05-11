@@ -1,21 +1,27 @@
 #include "config.h"
 
+// try to make gui in c#
+
 int main();
 
 void install() {
 
     // Define Variables
 
+    std::string null;
     std::string path;
 
     system("clear");
 
     std::cout << "Please provide the location of the APK you wish to install.\n\n> ";
     std::cin >> path; 
+    std::string cmd = "adb install " + path + "; printf '\n'; read -p 'Press ENTER to continue.' null";
 
     system("clear");
 
-    std::cout << 
+    system(cmd.c_str());
+
+    std::getline(std::cin, null);
 
     main();
     
