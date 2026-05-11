@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/android-toolkit.dir/src/main.cpp.o" -o android-toolkit 

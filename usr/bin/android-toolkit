@@ -1,7 +1,3 @@
-cd /home/$USER/.android-toolkit/
+#!/bin/bash
 
-if [ "$(cat ./usr/var/gui)" = '1' ]; then
-    /home/$USER/.android-toolkit/indexGUI.sh
-else
-    /home/$USER/.android-toolkit/index.sh
-fi
+/home/$USER/.android-toolkit/indexGUI.sh

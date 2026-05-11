@@ -1,20 +1,19 @@
 #!/bin/bash
 
+# chmod all
+
+chmod +x ./usr/bin/yad
+chmod +x ./usr/bin/adb
+
 clear
 
 # Variables
 
-if [[ -f ./usr/src/gui ]]; then     # Check if running as installation or
-                                    # as appimage and tells how to open
-    yad="./usr/bin/yad"             # Yet Another Dialog.
+adb="./usr/bin/adb"
 
-else
+yad="./usr/bin/yad" 
 
-    yad="yad"
-    
-fi
-
-ver="Beta 0.5.3.1"
+ver="Beta 0.5.3.2"
 
 #functions
 
@@ -24,7 +23,7 @@ exec() {
 
 }
 
-# For initial page, use 0 for exit, 1_ for switching pages, 
+# For initial page, use 0 for exit, 1* for switching pages, 
 # and all other digits for options 
 
 pageZero() {
@@ -77,7 +76,7 @@ pageZero() {
 
         else
 
-            adb install "$apk" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit | Install" --text-info --center --height=200 --width=600
+            "$adb" install "$apk" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit | Install" --text-info --center --height=200 --width=600
 
             if [[ "$?" = 1 ]]; then
 
@@ -112,7 +111,7 @@ pageZero() {
 
         else
         
-            adb shell pm uninstall --user 0 "$pkg" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit - Uninstall" --center --height=200 --width=600
+            "$adb" shell pm uninstall --user 0 "$pkg" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit - Uninstall" --center --height=200 --width=600
 
             if [[ $? = 1 ]]; then
 
@@ -146,7 +145,7 @@ pageZero() {
 
         else
 
-            adb shell pm install-existing --user 0 "$pkg" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --title "Android Toolkit - Re-Install" --height=200 --width=600
+            "$adb" shell pm install-existing --user 0 "$pkg" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --title "Android Toolkit - Re-Install" --height=200 --width=600
 
             if [[ "$?" = 1 ]]; then
 
@@ -211,7 +210,7 @@ pageZero() {
                             
                         printf "\n$cmd "
 
-                        adb shell pm uninstall --user 0 "$cmd" 2>&1
+                        "$adb" shell pm uninstall --user 0 "$cmd" 2>&1
 
                     done
 
@@ -237,7 +236,7 @@ pageZero() {
                             
                             printf "\n$cmd "
 
-                            adb shell pm uninstall --user 0 "$cmd" 2>&1
+                            "$adb" shell pm uninstall --user 0 "$cmd" 2>&1
 
                         done
 
@@ -262,7 +261,7 @@ pageZero() {
                             
                             printf "\n$cmd "
 
-                            adb shell pm uninstall --user 0 "$cmd" 2>&1
+                            "$adb" shell pm uninstall --user 0 "$cmd" 2>&1
 
                         done
 
@@ -334,7 +333,7 @@ pageOne() {
 
     if [[ "${ans}" = '5' ]]; then # List Packages
 
-        adb shell pm list packages 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - List Packages" --width=650 --height=550
+        "$adb" shell pm list packages 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - List Packages" --width=650 --height=550
 
         if [[ $? = 1 ]]; then
 
@@ -350,7 +349,7 @@ pageOne() {
 
     if [[ "${ans}" = '6' ]]; then # ADB Devices
 
-        adb devices 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - ADB Devices" --width=650 --height=550
+        "$adb" devices 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - ADB Devices" --width=650 --height=550
 
         if [[ $? = 1 ]]; then
 
@@ -448,7 +447,7 @@ pageOne() {
 
                     else
 
-                        adb backup -all -f "$pth"/"$name".ab 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - Backup" --height 550 --width 650
+                        "$adb" backup -all -f "$pth"/"$name".ab 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - Backup" --height 550 --width 650
 
                         if [[ "$?" = 1 ]]; then
 
@@ -516,7 +515,7 @@ pageOne() {
 
                 else
             
-                    adb restore "$bkp" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - Restore" --width=800 --height=400
+                    "$adb" restore "$bkp" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - Restore" --width=800 --height=400
                 
                     if [[ "$?" = 0 ]]; then
                     
@@ -544,7 +543,7 @@ pageOne() {
 
                 else
             
-                adb restore "$bkp"/"$name" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - Restore"
+                "$adb" restore "$bkp"/"$name" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --center --text-info --title "Android Toolkit - Restore"
                 
                 pageOne
 
@@ -618,7 +617,7 @@ pageOne() {
 
                 else
 
-                    adb push "$file" "$path" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit - Push" --center --width=600 --height=400
+                    "$adb" push "$file" "$path" 2>&1 | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit - Push" --center --width=600 --height=400
                 
                     if [[ "$?" = 0 ]]; then
                     
@@ -673,7 +672,7 @@ pageOne() {
 
                 else
 
-                    adb pull "$file" "$path" | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit - Pull" --center --width=600 --height=400
+                    "$adb" pull "$file" "$path" | "$yad" --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text-info --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "Android Toolkit - Pull" --center --width=600 --height=400
                     
                     if [[ "$?" = 0 ]]; then
 
@@ -991,7 +990,7 @@ pageTwo() {
 
                     else
 
-                        adb shell screencap -p > "$path/$name.png"
+                        "$adb" shell screencap -p > "$path/$name.png"
 
                         screenshot=$(
                             
@@ -1022,12 +1021,12 @@ pageTwo() {
 
             if [[ "$ans" = 2 ]]; then
 
-                adb shell mkdir /sdcard/tmp # Create temporary location on device to store video
+                "$adb" shell mkdir /sdcard/tmp # Create temporary location on device to store video
 
                     
-                adb shell screenrecord /sdcard/tmp/tmp.mp4 & # Record
+                "$adb" shell screenrecord /sdcard/tmp/tmp.mp4 & # Record
 
-                PID=$(pgrep -f "adb shell screenrecord /sdcard/tmp/tmp.mp4") # Get Process ID
+                PID=$(pgrep -f ""$adb" shell screenrecord /sdcard/tmp/tmp.mp4") # Get Process ID
 
                 cmd=$(
                     "$yad" --info --center --title "Android Toolkit - Recording..." --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --text "Recording..." --button "Stop":0
@@ -1049,15 +1048,15 @@ pageTwo() {
 
                     if [[ "$?" = 1 ]]; then
 
-                        adb shell rm -r /sdcard/tmp/
+                        "$adb" shell rm -r /sdcard/tmp/
 
                         pageTwo
 
                     else
 
-                        adb pull /sdcard/tmp/tmp.mp4 "$path".mp4
+                        "$adb" pull /sdcard/tmp/tmp.mp4 "$path".mp4
 
-                        adb shell rm -r /sdcard/tmp/
+                        "$adb" shell rm -r /sdcard/tmp/
 
                         pageTwo
 
@@ -1289,7 +1288,7 @@ pageThree() {
 
         changeDir() {
 
-            adb shell ls -r "$path" 2>&1 | "$yad" --text-info --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "$path" --center --width=1200 --height=1200 &
+            "$adb" shell ls -r "$path" 2>&1 | "$yad" --text-info --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "$path" --center --width=1200 --height=1200 &
 
             PID=$(pgrep -f "yad")
 
@@ -1325,11 +1324,11 @@ pageThree() {
 
                         file="$path"
 
-                        adb shell cat "$file"
+                        "$adb" shell cat "$file"
 
                         echo "$file $pathAdd"
 
-                        adb shell cat "$file" | "$yad" --text-info --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "$path/$pathAdd" --center --width=1200 --height=1200
+                        "$adb" shell cat "$file" | "$yad" --text-info --window-icon ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --image ./usr/share/icons/hicolor/48x48/apps/android-toolkit.png --title "$path/$pathAdd" --center --width=1200 --height=1200
 
                         changeDir
 

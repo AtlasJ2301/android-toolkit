@@ -1,0 +1,3 @@
+/home/atlasj/Programs/android-toolkit/cpp/build/CMakeFiles/android-toolkit.dir
+/home/atlasj/Programs/android-toolkit/cpp/build/CMakeFiles/edit_cache.dir
+/home/atlasj/Programs/android-toolkit/cpp/build/CMakeFiles/rebuild_cache.dir

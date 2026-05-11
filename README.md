@@ -2,7 +2,7 @@
 
     Application Name: android-toolkit 
     
-    Version: Alpha 0.5.3.1
+    Version: Alpha 0.5.3.2
     
     Release Date:
 
@@ -36,6 +36,8 @@
         - Made version number a variable
 
         - Added file manager #Currently Developing#
+
+        - Changed yad and adb files to only run from local.
 
     - compile.sh
 
