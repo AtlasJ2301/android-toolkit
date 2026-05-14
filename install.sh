@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [[ -d ./build ]]; then
+    rm -r ./build
+fi
+
+if [[ -d "/home/$USER/.android-toolkit/" ]]; then
+    rm -r ~/.android-toolkit/
+fi
+
+mkdir ~/.android-toolkit/
+mkdir ./build
+cd ./build
+
+cmake ../
+make
+
+cd ..
+
+cp -r ./libs/ ~/.android-toolkit/libs/
+cp -r ./var/ ~/.android-toolkit/var/
+cp ./icon.png ~/.android-toolkit/icon.png
+cp ./build/android-toolkit ~/.android-toolkit/android-toolkit
+
+printf "[Desktop Entry]\nName=Android Toolkit\nExec=gnome-terminal -- /home/$USER/.android-toolkit/android-toolkit\nType=Application\nIcon=/home/$USER/.android-toolkit/icon.png\nComment=An Easy to use ADB interface" > "/home/$USER/.android-toolkit/android-toolkit.desktop"
+sudo cp -f ./libs/android-toolkit /usr/bin/android-toolkit
+sudo chmod +x /usr/bin/android-toolkit
+cp ~/.android-toolkit/android-toolkit.desktop ~/.local/share/applications
+
+read null
+
+gnome-terminal -- ~/.android-toolkit/android-toolkit

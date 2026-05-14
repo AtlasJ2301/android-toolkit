@@ -2,7 +2,7 @@
 
     Application Name: android-toolkit 
     
-    Version: Alpha 0.5.3.2
+    Version: Release 1.1.0
     
     Release Date:
 
@@ -29,38 +29,23 @@
 
 **INSTALLATION**
 
+    compile.sh - Run the compile.sh file in the projects root folder.
+
     curl - 
 
 **RELEASE NOTES:**
 
-    - indexGUI.sh
+    - Switched from Bash to C++.
 
-        - Made install accessable through the GUI
+    - main.cpp
+        - Added Pair over WIFI feature
+        - Added Disconnect ADB Wireless Device feature
 
-        - Made version number a variable
-
-        - Added file manager #Currently Developing#
-
-        - Changed yad and adb files to only run from local.
-
-    - compile.sh
-
-        - Moved this file into ./usr/src/ and accessable through the GUI
-
-        - Made compiler automatically include version name in appimage
-
-        - Allowed selection of architype version
-
-    - install
-
-        - added gui sudo prompt
-
-    - curl.sh
-
-        - Still working
 **DEPRECATED FILES:**
 
-    - As of Beta 0.3.4, index.sh is deprecated
+    - As of Beta 0.3.4, index.sh is deprecated.
+
+    - As of 1.0.0 Release, indexGUI.sh and all accompanying files are deprecated.
 
 **CONTRIBUTORS:**
 

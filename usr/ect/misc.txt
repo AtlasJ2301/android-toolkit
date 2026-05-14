@@ -1,3 +1,0 @@
-Update YAD:
-apt-get download yad
-dpkg-deb -x yad_*.deb ./../

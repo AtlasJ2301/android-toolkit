@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ "$1" = "-t" ]]; then
+
+    gnome-terminal -- ~/.android-toolkit/android-toolkit
+
+else
+
+    ~/.android-toolkit/android-toolkit
+
+fi
