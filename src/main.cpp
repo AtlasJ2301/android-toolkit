@@ -14,7 +14,7 @@ std::string dtp;
 std::string dtpSze;
 
 // Conditions
-std::string version = "1.1.0 release";
+std::string version = "1.1.0 debug";
 
 // Commonly Used Variables
 std::string input;

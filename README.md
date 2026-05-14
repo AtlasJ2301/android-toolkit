@@ -12,32 +12,24 @@
     To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, 
     to the SCRCPY link folder in the projects root folder before compiling.
 
-    Compile - If you wish to compile android-toolkit, either run the 'compile.sh' file, or if you wish for debug settings, 
-    in your terminal run './usr/bin/compile.AppImage ./ &&  chmod +x *.AppImage' while in the source code directory.
-
-    Run android-toolkit - To run an AppImage of android-toolkit, open the file in your linux devices terminal.
-
 **SOURCES:**
 
     SCRCPY - https://github.com/Genymobile/scrcpy/releases
-
-    AppImageTool - https://github.com/AppImage/appimagetool
-
-    Yet Another Dialog - https://github.com/v1cont/yad
 
     ADB - https://developer.android.com/tools/adb
 
 **INSTALLATION**
 
-    compile.sh - Run the compile.sh file in the projects root folder.
+    compile.sh - Simply run the install file in the projects root folder.
 
-    curl - 
+    curl - !Work in Progress!
 
 **RELEASE NOTES:**
 
     - Switched from Bash to C++.
 
     - main.cpp
+        - Added all features from indexGUI.sh !Work in Progress!
         - Added Pair over WIFI feature
         - Added Disconnect ADB Wireless Device feature
 
@@ -67,3 +59,20 @@
         general is ok and permitted, as you, the
         developer, are still actually comprehending
         the information yourself.
+
+**Future Plans**
+
+    - finish C++ version
+
+    - Add curl support to download
+
+    - kill adb start adb on startup
+    
+    - power menu
+    
+    - add image support to file manager
+
+    - add more tags to scrcpy and menu to select 
+        options rather than a sequence.
+
+    - add file manager
