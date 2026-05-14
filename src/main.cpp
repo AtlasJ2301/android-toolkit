@@ -1,5 +1,7 @@
 #include "config.h"
 
+int main();
+
 // Function Variables
 std::string adb = "~/.android-toolkit/libs/adb ";
 std::string backup;
@@ -10,15 +12,52 @@ std::string ip;
 std::string package;
 std::string cmd;
 
-std::string dtp;
-std::string dtpSze;
+std::string dktp;
+std::string uhms;
+std::string uhkb;
+std::string fscr;
+
 
 // Conditions
+bool isExiting;
+bool isSCRCPYImplemented;
 std::string version = "1.1.0 debug";
 
 // Commonly Used Variables
 std::string input;
 std::string null;
+
+void scrcpy() {
+    std::cout << "Please choose an option.\n\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n\nPress ENTER to continue\n\n> ";
+    std::getline(std::cin, input);
+
+    system("clear");
+    if (input == "") {
+        std::string cmd = "nohup ./libs/SCRCPY/scrcpy" + dktp + uhms + uhkb + fscr + " &";
+        system(cmd.c_str());
+        main();
+    } else if (input == "1") {
+        if (input != "") {
+            if (dktp == "") {
+                std::cout << "Please provide the desktop size.\n\nEx. (1920x1080)\n\n> ";
+                std::getline(std::cin, input);
+
+                if (input != "") {
+                    dktp = " --new-display=" + input + "\\120 ";
+                }
+            } else {
+                dktp = "";
+            }
+        }
+    } else if (input == "2") {
+        uhms = " --mouse=uhid ";
+    } else if (input == "3") {
+        uhkb = " --keyboard=uhid ";
+    } else if (input == "4") {
+        fscr = " -f ";
+    }
+    scrcpy();
+}
 
 int main() {
 
@@ -27,7 +66,9 @@ int main() {
     std::cout << "Android Toolkit v" << version << "\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\n\nd1. SCRCPY";
     if (std::filesystem::exists("./libs/SCRCPY/scrcpy") == false) {
         std::cout << " (Not Implemented)";
-        bool isSCRCPYImplemented = false;
+        isSCRCPYImplemented = false;
+    } else {
+        isSCRCPYImplemented = true;
     }
     std::cout << "\n\n> ";
     
@@ -269,24 +310,7 @@ int main() {
             }
         }
     } else if (input == "d1") {
-        if (isSCRCPYImplemented == false) {
-            std::cout << "SCRCPY is not implemented.\n\nPlease download the files from https://github.com/Genymobile/scrcpy/releases/ and then copy the files into the SCRCPY folder in the android-toolkit root folder before installing.\n\nPress ENTER to continue."
-            
-            std::getline(std::cin, null);
-        } else {
-            std::cout << "Desktop mode? [y/n]\n\n";
-
-            std::getline(std::cin, dtp);
-
-            if (dtp == "y" || dtp = "Y") {
-                system("clear");
-                std::cout << "Please provide a size for the desktop.\nEx. (1920x1080)\n\n> ";
-
-                std::getline(std::cin, dtpSze);
-            }
-        }
-
-        main();
+        scrcpy();
     }
     else {
         std::cout << "Exiting Android Toolkit...\n\n";

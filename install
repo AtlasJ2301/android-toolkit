@@ -18,7 +18,6 @@ make
 cd ..
 
 cp -r ./libs/ ~/.android-toolkit/libs/
-cp -r ./var/ ~/.android-toolkit/var/
 cp ./icon.png ~/.android-toolkit/icon.png
 cp ./build/android-toolkit ~/.android-toolkit/android-toolkit
 
