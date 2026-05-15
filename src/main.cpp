@@ -19,57 +19,80 @@ std::string fscr;
 
 
 // Conditions
-bool isExiting;
 bool isSCRCPYImplemented;
 std::string version = "1.1.0 debug";
 
-// Commonly Used Variables
+// Global Variables
+std::string user;
 std::string input;
 std::string null;
+std::string home = getenv("HOME");
 
 void scrcpy() {
-    std::cout << "Please choose an option.\n\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n\nPress ENTER to continue\n\n> ";
+    std::cout << "Please choose an option.\n\nNote: Im pretty sure that SCRCPY broke Desktop mode in v4.0, so until further updates I would advise against using it.\n\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n\nType Exit to exit.\nPress ENTER to continue\n\n> ";
     std::getline(std::cin, input);
 
     system("clear");
     if (input == "") {
-        std::string cmd = "nohup ./libs/SCRCPY/scrcpy" + dktp + uhms + uhkb + fscr + " &";
+        std::string cmd = "./libs/SCRCPY/scrcpy" + dktp + uhms + uhkb + fscr;
         system(cmd.c_str());
         main();
     } else if (input == "1") {
-        if (input != "") {
-            if (dktp == "") {
-                std::cout << "Please provide the desktop size.\n\nEx. (1920x1080)\n\n> ";
-                std::getline(std::cin, input);
+        if (dktp == "") {
+            std::cout << "Please provide the desktop size.\n\nEx. (1920x1080)\n\n> ";
+            std::getline(std::cin, input);
 
                 if (input != "") {
-                    dktp = " --new-display=" + input + "\\120 ";
-                }
-            } else {
-                dktp = "";
+                dktp = " --new-display=" + input + "\\120 ";
             }
+        } else {
+            dktp = "";
         }
+        scrcpy();
     } else if (input == "2") {
-        uhms = " --mouse=uhid ";
+        if (uhms == "") {
+            uhms = " --mouse=uhid ";
+        } else {
+            uhms = "";
+        }
+        scrcpy();
     } else if (input == "3") {
-        uhkb = " --keyboard=uhid ";
+        if (uhkb == "") {
+            uhkb = " --keyboard=uhid ";
+        } else {
+            uhkb = "";
+        }
+        scrcpy();
     } else if (input == "4") {
-        fscr = " -f ";
+        if (fscr == "") {
+            fscr = " -f ";
+        } else {
+            fscr = "";
+        }
+        scrcpy();
+    } else if (input == "Exit" || input == "exit") {
+        main();
     }
-    scrcpy();
 }
 
 int main() {
 
     system("clear");
 
-    std::cout << "Android Toolkit v" << version << "\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\n\nd1. SCRCPY";
+    std::cout << "Android Toolkit v" << version << "\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\n\nd1. SCRCPY\nd2. Screenshot / Record";
+
     if (std::filesystem::exists("./libs/SCRCPY/scrcpy") == false) {
         std::cout << " (Not Implemented)";
         isSCRCPYImplemented = false;
     } else {
         isSCRCPYImplemented = true;
     }
+
+    if (std::filesystem::exists(home + "/.android-toolkit/isDebug") == true) {
+        
+        std::cout << "\n\ndev. Debug Settings";
+    }
+
     std::cout << "\n\n> ";
     
     std::getline(std::cin, input);
@@ -82,6 +105,7 @@ int main() {
 
         if (ip == "") {
             main();
+
         } else {
             system("clear");
             std::cout << "Please provide the IP's Port.\n\n> ";
@@ -195,17 +219,17 @@ int main() {
             main();
 
         } else if (input == "a1") {
-            system("/home/$USER/.android-toolkit/libs/debloat/oneuiLow.sh");
+            system("/home/$USER/.android-toolkit/libs/bash.sh oneuiDebloatLow");
             std::getline(std::cin, null);
             main();
 
         } else if (input == "a2") {
-            system("/home/$USER/.android-toolkit/libs/debloat/oneuiMed.sh");
+            system("/home/$USER/.android-toolkit/libs/bash.sh oneuiDebloatMed");
             std::getline(std::cin, null);
             main();
 
         } else if (input == "a3") {
-            system("/home/$USER/.android-toolkit/libs/debloat/oneuiHigh.sh");
+            system("/home/$USER/.android-toolkit/libs/bash.sh oneuiDebloatHigh");
             std::getline(std::cin, null);
             main();
 
@@ -311,6 +335,60 @@ int main() {
         }
     } else if (input == "d1") {
         scrcpy();
+    } else if (input == "d2") {
+        std::cout << "Please choose an option.\n\n1. Screenshot\n2. Screen Record\n\n> ";
+        std::getline(std::cin, input);
+
+        system("clear");
+        if (input == "") {
+            main();
+        } else {
+            std::cout << "Please provide a path for the capture.\n\n> ";
+            std::getline(std::cin, path);
+
+            system("clear");
+            if (path == "") {
+                main();
+            } else {
+                std::cout << "Please provide a name for the capture.\n\n> ";
+                std::getline(std::cin, file);
+
+                system("clear");
+                if (input == "1") {
+                    cmd = adb + "shell screencap -p > " + path + "/" + file + ".png";
+                    system(cmd.c_str());
+
+                    std::getline(std::cin, null);
+                    main();
+                } else if (input == "2") {
+                    cmd = adb + "pull /sdcard/tmp/tmp.mp4 " + path + "/" + file + ".mp4"; 
+                    system("/home/$USER/.android-toolkit/libs/bash.sh screenrecord");
+
+                    system(cmd.c_str());
+                    std::cout << "\n\nPress ENTER to continue.";
+                    std::getline(std::cin, null);
+                    main();
+                } else {
+                    main();
+                }
+            }
+        }
+    } else if (input == "dev" && std::filesystem::exists(home + "/.android-toolkit/isDebug")) {
+        std::cout << "Debug Settings.\n\n1. Config for Release\n2. Implement SCRCPY\n3. Create SCRCPY link\n\n> ";
+        std::getline(std::cin, input);
+
+        system("clear");
+        if (input == "") {
+            main();
+        } else if (input == "1") {
+            system("rm -r ./build; rm ./libs/SCRCPY/*; rm ./nohup.out");
+            main();
+        } else if (input == "2") {
+            system("cp ../SCRCPY/* ./libs/SCRCPY/");
+            main();
+        } else if (input == "3") {
+            system("ln -s ./libs/SCRCPY/ ./");
+        }
     }
     else {
         std::cout << "Exiting Android Toolkit...\n\n";

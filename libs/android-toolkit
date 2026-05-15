@@ -1,11 +1,15 @@
 #!/bin/bash
 
-if [[ "$1" = "-t" ]]; then
+if [[ "$1" = "--help" ]]; then
 
-    gnome-terminal -- ~/.android-toolkit/android-toolkit
-
-else
-
-    ~/.android-toolkit/android-toolkit
+    printf "Android Toolkit: An easy to use ADB interface\n\nUsage:\n\n-t       Open in separate terminal\n\n"
 
 fi
+
+if [[ "$1" = "-t" ]]; then
+
+    terminal="gnome-terminal -- "
+
+fi
+
+bash -c "$terminal ~/.android-toolkit/android-toolkit"
