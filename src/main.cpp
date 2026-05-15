@@ -79,7 +79,7 @@ int main() {
 
     system("clear");
 
-    std::cout << "Android Toolkit v" << version << "\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\n\nd1. SCRCPY\nd2. Screenshot / Record";
+    std::cout << "Android Toolkit v" << version << "\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\nc2. File Manager\n\nd1. SCRCPY";
 
     if (std::filesystem::exists("./libs/SCRCPY/scrcpy") == false) {
         std::cout << " (Not Implemented)";
@@ -87,6 +87,8 @@ int main() {
     } else {
         isSCRCPYImplemented = true;
     }
+
+    std::cout << "\nd2. Screenshot / Record";
 
     if (std::filesystem::exists(home + "/.android-toolkit/isDebug") == true) {
         
@@ -232,7 +234,6 @@ int main() {
             system("/home/$USER/.android-toolkit/libs/bash.sh oneuiDebloatHigh");
             std::getline(std::cin, null);
             main();
-
         }
     } else if (input == "b6") {
         std::cout << "Please select an option.\n\n1. Backup\n2. Restore\n\n> ";
@@ -333,7 +334,22 @@ int main() {
                 }
             }
         }
-    } else if (input == "d1") {
+    } else if (input == "c2") {
+        while (std::cout << "\nPlease provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\n\nType Exit to exit.\n\n> " && std::getline(std::cin, path)) {
+            if (path == "exit" || path == "Exit") {
+                main();
+            } else {
+                system("clear");
+                path = "/sdcard/" + path;
+                std::cout << "Current Path: " << path << "\n\n";
+                cmd = adb + "shell ls -r " + path;
+                system(cmd.c_str());
+            }
+        }
+        
+    } 
+    
+    else if (input == "d1") {
         scrcpy();
     } else if (input == "d2") {
         std::cout << "Please choose an option.\n\n1. Screenshot\n2. Screen Record\n\n> ";
@@ -388,9 +404,18 @@ int main() {
             main();
         } else if (input == "3") {
             system("ln -s ./libs/SCRCPY/ ./");
+            main();
         }
     }
-    else {
+    else if (input == "e1"){
+        system("cat ~/.android-toolkit/README.md");
+
+        std::cout << "\n\nPress ENTER to continue.";
+        std::getline(std::cin, null);
+        main();
+    }
+    
+    {
         std::cout << "Exiting Android Toolkit...\n\n";
 
         return 0;

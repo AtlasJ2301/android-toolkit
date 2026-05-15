@@ -35,6 +35,7 @@ else
 
     cd ..
 
+    cp ./README.md ~/.android-toolkit/README.md
     cp -r ./libs/ ~/.android-toolkit/libs/
     cp ./icon.png ~/.android-toolkit/icon.png
     cp ./build/android-toolkit ~/.android-toolkit/android-toolkit
