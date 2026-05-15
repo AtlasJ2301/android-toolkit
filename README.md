@@ -29,6 +29,7 @@
     - Switched from Bash to C++.
 
     - main.cpp
+        - Added a menu instead of a sequence of questions for SCRCPY !Work in Progress!
         - Added all features from indexGUI.sh !Work in Progress!
         - Added Pair over WIFI feature
         - Added Disconnect ADB Wireless Device feature
@@ -71,8 +72,5 @@
     - power menu
     
     - add image support to file manager
-
-    - add more tags to scrcpy and menu to select 
-        options rather than a sequence.
 
     - add file manager
