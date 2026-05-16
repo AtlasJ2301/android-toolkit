@@ -20,7 +20,7 @@ std::string fscr;
 
 // Conditions
 bool isSCRCPYImplemented;
-std::string version = "1.1.0 debug";
+std::string version = "1.2.1 debug";
 
 // Global Variables
 std::string user;
@@ -79,9 +79,9 @@ int main() {
 
     system("clear");
 
-    std::cout << "Android Toolkit v" << version << "\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\nc2. File Manager\n\nd1. SCRCPY";
+    std::cout << "Welcome to Android Toolkit v" << version << "!\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\na4. Restart ADB\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\nc2. File Manager\n\nd1. SCRCPY";
 
-    if (std::filesystem::exists("./libs/SCRCPY/scrcpy") == false) {
+    if (std::filesystem::exists(home + "/.android-toolkit/libs/SCRCPY/scrcpy") == false) {
         std::cout << " (Not Implemented)";
         isSCRCPYImplemented = false;
     } else {
@@ -161,7 +161,17 @@ int main() {
 
         std::getline(std::cin, null);
         main();
-    } else if (input == "b1") {
+    } else if (input == "a4") {
+        cmd = adb + "kill-server";
+        system(cmd.c_str());
+        cmd = adb + "start-server";
+        system(cmd.c_str());
+
+        std::cout << "\nPress ENTER to continue.";
+        std::getline(std::cin, null);
+        main();
+    }
+    else if (input == "b1") {
 
         std::cout << "Please provide the path to the APK.\n\n> ";
         std::getline(std::cin, path);
@@ -335,11 +345,44 @@ int main() {
             }
         }
     } else if (input == "c2") {
-        while (std::cout << "\nPlease provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\n\nType Exit to exit.\n\n> " && std::getline(std::cin, path)) {
+        while (std::cout << "\nPlease provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\nPaths are absolute.\nType Exit to exit.\n\n> " && std::getline(std::cin, path)) {
+            system("clear");
             if (path == "exit" || path == "Exit") {
                 main();
-            } else {
+            } else if (path == "file" || path == "File") {
+                std::cout << "Please choose an option.\n\n1. Delete file\n2. Copy File\n\n> ";
+                std::getline(std::cin, input);
+
                 system("clear");
+                if (input == "1") {
+                    std::cout << "Please provide the path to the file.\n\n> ";
+                    std::getline(std::cin, file);
+                    if (file != "") {
+                        cmd = adb + "shell rm /sdcard/" + file;
+                        system(cmd.c_str());
+
+                        std::getline(std::cin, null);
+                    }
+                } else if (input == "2") {
+                    std::cout << "Please provide the path to the file to be copied\n\n> ";
+                    std::getline(std::cin, file);
+                    
+                    system("clear");
+                    if (file != "") {
+                        std::cout << "Please provide the path where the file should be copied to.\n\n> ";
+                        std::getline(std::cin, path);
+
+                        system("clear");
+                        if (path != "") {
+                            cmd = adb + "shell cp /sdcard/" + file + " /sdcard/" + path;
+                            system(cmd.c_str());
+
+                            std::getline(std::cin, null);
+                        }
+                    }
+                }
+                main();
+            } else {
                 path = "/sdcard/" + path;
                 std::cout << "Current Path: " << path << "\n\n";
                 cmd = adb + "shell ls -r " + path;
@@ -347,10 +390,14 @@ int main() {
             }
         }
         
-    } 
-    
-    else if (input == "d1") {
-        scrcpy();
+    } else if (input == "d1") {
+        if (isSCRCPYImplemented == true) {
+            scrcpy();
+        } else {
+            std::cout << "SCRCPY is not implemented. To do so, download the latest release of SCRCPY from https://github.com/Genymobile/scrcpy/releases/, and when installing, type './install -s'.\n\nPress ENTER to continue.";
+            std::getline(std::cin, null);
+            main();
+        }
     } else if (input == "d2") {
         std::cout << "Please choose an option.\n\n1. Screenshot\n2. Screen Record\n\n> ";
         std::getline(std::cin, input);
@@ -390,20 +437,17 @@ int main() {
             }
         }
     } else if (input == "dev" && std::filesystem::exists(home + "/.android-toolkit/isDebug")) {
-        std::cout << "Debug Settings.\n\n1. Config for Release\n2. Implement SCRCPY\n3. Create SCRCPY link\n\n> ";
+        std::cout << "Debug Settings.\n\n1. Config for Release\n2. Create SCRCPY link\n\n> ";
         std::getline(std::cin, input);
 
         system("clear");
-        if (input == "") {
-            main();
-        } else if (input == "1") {
+        if (input == "1") {
             system("rm -r ./build; rm ./libs/SCRCPY/*; rm ./nohup.out");
             main();
         } else if (input == "2") {
-            system("cp ../SCRCPY/* ./libs/SCRCPY/");
-            main();
-        } else if (input == "3") {
             system("ln -s ./libs/SCRCPY/ ./");
+            main();
+        } else {
             main();
         }
     }

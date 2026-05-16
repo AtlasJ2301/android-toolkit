@@ -4,6 +4,11 @@ if [[ "$1" = "--help" ]]; then
 
     printf "Android Toolkit: An easy to use ADB interface\n\nUsage:\n\n-t       Open in separate terminal\n\n"
 
+    if [[ -f "/home/$USER/.android-toolkit/libs/SCRCPY/scrcpy" ]]; then
+        printf "SCRCPY is implemented"
+    else
+        printf "SCRCPY is not implemented\n\n"
+    fi
 fi
 
 if [[ "$1" = "-t" ]]; then
@@ -12,4 +17,7 @@ if [[ "$1" = "-t" ]]; then
 
 fi
 
-bash -c "$terminal ~/.android-toolkit/android-toolkit"
+if ! [[ "$1" = "--help" ]]; then
+    bash -c "$terminal ~/.android-toolkit/android-toolkit"
+fi
+

@@ -2,7 +2,7 @@
 
     Application Name: android-toolkit 
     
-    Version: Release 1.1.0
+    Version: Release 1.2.1
     
     Release Date:
 
@@ -33,12 +33,16 @@
         - Added all features from indexGUI.sh !Work in Progress!
         - Added Pair over WIFI feature
         - Added Disconnect ADB Wireless Device feature
+        - Added Restart ADB feature
+
+    - install
+        - Added update from Github feature.
 
 **DEPRECATED FILES:**
 
     - As of Beta 0.3.4, index.sh is deprecated.
 
-    - As of 1.0.0 Release, indexGUI.sh and all accompanying files are deprecated.
+    - As of 1.2.1 Release, indexGUI.sh and all accompanying files are deprecated.
 
 **CONTRIBUTORS:**
 
@@ -66,8 +70,6 @@
     - finish C++ version
 
     - Add curl support to download
-
-    - kill adb start adb on startup
     
     - power menu
     

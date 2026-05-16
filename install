@@ -1,20 +1,37 @@
 #!/bin/bash
 
 if [[ "$1" = "--help" ]]; then
-    printf "\nUsed to install android-toolkit to the system.\n\nAndroid Toolkit: An easy to use ADB interface\n\nUsage:\n\n-d       Compile as developer\n-u       Uninstall android-toolkit from device\n\n"
-
+    printf "\nUsed to install android-toolkit to the system.\n\nAndroid Toolkit: An easy to use ADB interface\n\nUsage:\n\n-d       Compile as developer\n-r       Uninstall android-toolkit from device\n-s       Creates shortcut to implement SCRCPY\n-u       Update android-toolkit from github.\n"
     exit
 fi
 
-if [[ "$1" = "-u" ]]; then
+if [[ "$1" = "-r" || "$2" = "-r" ]]; then
 
     rm -r ~/.android-toolkit/
     rm ~/.local/share/applications/android-toolkit.desktop
     sudo rm /usr/bin/android-toolkit
 
-else
+else if [[ "$1" = "-u" ]]; then
 
-    if [[ "$1" = "-d" ]]; then
+    git pull origin
+
+    read -p "Press ENTER to continue." null
+
+fi
+
+    if [[ "$1" = "-s" || "$2" = "-s" ]]; then
+        if [[ "$1" = "-d" || "$2" = "-d" ]]; then
+            cp ../SCRCPY/* ./libs/SCRCPY/
+        else
+            printf "Creating link...\n"
+            rm -r ./SCRCPY
+            ln -s ./libs/SCRCPY/ ./
+
+            read -p "Please drag and drop the contents of your SCRCPY download to the link made in the projects folder" null
+        fi
+    fi
+
+    if [[ "$1" = "-d" || "$2" = "-d" ]]; then
         printf "DEBUG MODE\n\n"
     fi
 
@@ -47,15 +64,21 @@ else
 
     printf "$USER" > ~/.android-toolkit/user
 
-    if [[ "$1" = "-d" ]]; then
+    if [[ "$1" = "-d" || "$2" = "-d" ]]; then
 
         touch ~/.android-toolkit/isDebug
 
     fi
 
     rm -r ./build
-
+    if [[ "$1" = "-s" || "$2" = "-s" ]]; then
+        rm -r SCRCPY
+    fi
+    if [[ "$1" = "-d" || "$2" = "-d" ]]; then
+        rm ./libs/SCRCPY/*
+    fi
     read -p "Press ENTER to continue." null
+   
 
     gnome-terminal -- ~/.android-toolkit/android-toolkit
 
