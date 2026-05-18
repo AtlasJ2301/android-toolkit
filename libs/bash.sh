@@ -58,6 +58,8 @@ if [[ "$1" = "curl" ]]; then
 
     ./install
 
+    read null
+
 fi
 
 if [[ "$1" = "" ]]; then
