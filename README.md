@@ -69,7 +69,7 @@ If you do not have curl installed, run this command:
 - apt: A place to install linux packages from.
 
 From here it is as easy as running a single command:
-    curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh curl | sh
+    curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash --curl
 
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
 
