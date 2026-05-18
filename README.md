@@ -63,6 +63,7 @@ Supported Platforms
 > Generally, you should keep downloads somewhere in your home folder unless you use something like a separate hard drive, but for this demonstration I will show you how to set it up in the Downloads folder.
 
 Open a terminal (CTRL + ALT + T).
+
 Where do you want to download it? If you want something like your downloads file, you would run the command:
     cd /home/$USER/Downloads
 
