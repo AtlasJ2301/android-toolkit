@@ -11,16 +11,23 @@ std::string port;
 std::string ip;
 std::string package;
 std::string cmd;
+std::string display;
 
-std::string dktp;
-std::string uhms;
-std::string uhkb;
-std::string fscr;
-
+// SCRCPY Variables
+std::string dktp; // Desktop Mode
+std::string uhms; // Uhid Mouse
+std::string uhkb; // Uhid Keyboard
+std::string fscr; // Fullscreen
+std::string alot; // Always on Top
+std::string dbau; // Double Audio
+std::string dfps; // Display FPS
+std::string applName; // Application to be opened
+std::string appl; // Parsed argument
+std::string scrcpyConfig; // Contents of SCRCPY-config.txt
 
 // Conditions
 bool isSCRCPYImplemented;
-std::string version = "1.2.1 debug";
+std::string version = "Alpha v1.2.6 ";
 
 // Global Variables
 std::string user;
@@ -29,21 +36,50 @@ std::string null;
 std::string home = getenv("HOME");
 
 void scrcpy() {
-    std::cout << "Please choose an option.\n\nNote: Im pretty sure that SCRCPY broke Desktop mode in v4.0, so until further updates I would advise against using it.\n\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n\nType Exit to exit.\nPress ENTER to continue\n\n> ";
+    system("clear");
+    std::cout << "Please choose an option.\n\nNote: Im pretty sure that SCRCPY broke Desktop mode in v4.0 as it completely freezes the phone and restarts it, so until further updates I would advise against using it.\n\n";
+    if (scrcpyConfig != "") {
+        std::cout << "Loaded SCRCPY config.";
+    } else {
+        if (dktp != "") {
+            std::cout << "Desktop mode is on. (You should turn this off).\n";
+        } if (uhms != "") {
+            std::cout << "Uhid Mouse is on.\n";
+        } if (uhkb != "") {
+            std::cout << "Uhid Keyboard is on.\n";
+        } if (fscr != "") {
+            std::cout << "Fullscreen is on\n";
+        } if (alot != "") {
+            std::cout << "Always on Top is on\n";
+        } if (dbau != "") {
+            std::cout << "Audio is on Both Devices\n";
+        } if (dfps != "") {
+            std::cout << "Display FPS is on\n";
+        } if (appl != "") {
+            std::cout << "Open Application " << applName << " on start\n";
+        }
+    }
+    std::cout << "\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n5. Always on top\n6. Play Audio on Both Devices\n7. Print FPS\n8. Open Application\nType Exit to exit.\n\nType Save to save current settings or Load to run SCRCPY with saved settings.\n\nPress ENTER to continue\n\n> ";
     std::getline(std::cin, input);
 
     system("clear");
     if (input == "") {
-        std::string cmd = "./libs/SCRCPY/scrcpy" + dktp + uhms + uhkb + fscr;
+        if (scrcpyConfig != "") {
+            std::string cmd = home + "/.android-toolkit/libs/SCRCPY/scrcpy --max-fps=60 --video-bit-rate=2M" + dktp + uhms + uhkb + fscr + alot + dbau + dfps + appl;
+        } else {
+            std::string cmd = home + "/.android-toolkit/libs/SCRCPY/scrcpy --max-fps=60 --video-bit-rate=2M" + scrcpyConfig;
+        }
         system(cmd.c_str());
+        std::cout << "Finished.\n\nPress ENTER to continue.";
+        std::getline(std::cin, null);
         main();
     } else if (input == "1") {
         if (dktp == "") {
             std::cout << "Please provide the desktop size.\n\nEx. (1920x1080)\n\n> ";
             std::getline(std::cin, input);
 
-                if (input != "") {
-                dktp = " --new-display=" + input + "\\120 ";
+            if (input != "") {
+                dktp = " --new-display=" + input;
             }
         } else {
             dktp = "";
@@ -70,6 +106,61 @@ void scrcpy() {
             fscr = "";
         }
         scrcpy();
+    } else if (input == "5") {
+        if (alot == "") {
+            alot = " --always-on-top ";
+        } else {
+            alot = "";
+        }
+        scrcpy();
+    } else if (input == "6") {
+        if (dbau == "") {
+            dbau = " --audio-dup ";
+        } else{
+            dbau = "";
+        }
+        scrcpy();
+    } else if (input == "7") {
+        if (dfps == "") {
+            dfps = " --print-fps ";
+        } else {
+            dfps = "";
+        }
+        scrcpy();
+    } else if (input == "8") {
+        if (appl == "") {
+            std::cout << "Please provide a package to open at start.\n\n> ";
+
+            std::getline(std::cin, applName);
+            system("clear");
+            if (applName != "") {
+                appl = " --start-app=" + applName + " ";
+            }
+        } else {
+            appl = "";
+        }
+        scrcpy();
+    } else if (input == "Save" || input == "save") {
+        cmd = "printf '" + dktp + uhms + uhkb + fscr + alot + dbau + dfps + appl + "' > " + home + "/.android-toolkit/SCRCPY-config.txt";
+        system(cmd.c_str());
+        scrcpy();
+    } else if (input == "Load" || input == "load" ) {
+        if (scrcpyConfig != "") {
+            std::ifstream file(home + "/.android-toolkit/SCRCPY-config.txt");
+            if (!file.is_open()) {
+                std::cerr << "Error opening file.";
+                
+                std::getline(std::cin, null);
+                scrcpy();
+            } else {
+                std::getline(file, scrcpyConfig);
+            }
+
+            std::getline(std::cin, null);
+        } else {
+            scrcpyConfig = "";
+        }
+        scrcpy();
     } else if (input == "Exit" || input == "exit") {
         main();
     }
@@ -79,7 +170,7 @@ int main() {
 
     system("clear");
 
-    std::cout << "Welcome to Android Toolkit v" << version << "!\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\na4. Restart ADB\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\nc2. File Manager\n\nd1. SCRCPY";
+    std::cout << "Welcome to Android Toolkit " << version << "!\n\na1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\na4. Restart ADB\n\nb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\n\nc1. Push / Pull\nc2. File Manager\n\nd1. SCRCPY";
 
     if (std::filesystem::exists(home + "/.android-toolkit/libs/SCRCPY/scrcpy") == false) {
         std::cout << " (Not Implemented)";
@@ -110,7 +201,7 @@ int main() {
 
         } else {
             system("clear");
-            std::cout << "Please provide the IP's Port.\n\n> ";
+            std::cout << "Please provide the IP's Port.\n\nEx: 192.168.0.116\n\n> ";
             std::getline(std::cin, port);
 
             if (port == "") {
@@ -119,8 +210,9 @@ int main() {
                 cmd = "clear;" + adb + "pair " + ip + ":" + port;
                 system(cmd.c_str());
 
+                std::getline(std::cin, null);
                 system("clear");
-                std::cout << "Now provide the IP's Port located under 'Device Name'.\n\n> ";
+                std::cout << "Now provide the IP's Port located under 'Device Name'.\n\n" << ip << ":xxxxx\n\n> ";
                 std::getline(std::cin, port);
 
                 if (port == "") {
@@ -389,7 +481,6 @@ int main() {
                 system(cmd.c_str());
             }
         }
-        
     } else if (input == "d1") {
         if (isSCRCPYImplemented == true) {
             scrcpy();
@@ -421,7 +512,28 @@ int main() {
                     cmd = adb + "shell screencap -p > " + path + "/" + file + ".png";
                     system(cmd.c_str());
 
-                    std::getline(std::cin, null);
+                    std::cout << "\nIf an error about multiple displays showed, it most likely isn't a problem.\nIf however this is causing a problem, type 'display'.";
+
+                    std::getline(std::cin, input);
+                    system("clear");
+                    if (input == "display") {
+                        std::cout << "Please provide a display number (The one to the right of Display).\n\n";
+
+                        cmd = adb + "shell dumpsys SurfaceFlinger --display-id";
+                        system(cmd.c_str());
+
+                        std::cout << "\n> ";
+                        std::getline(std::cin, display);
+                        system("clear");
+                        if (display != "") {
+                            cmd = adb + "shell screencap -pd > " + path + "/" + file + ".png " + display;
+                            system(cmd.c_str());
+
+                            std::getline(std::cin, null);
+                        }
+
+                        main();
+                    }
                     main();
                 } else if (input == "2") {
                     cmd = adb + "pull /sdcard/tmp/tmp.mp4 " + path + "/" + file + ".mp4"; 
@@ -443,26 +555,18 @@ int main() {
         system("clear");
         if (input == "1") {
             system("rm -r ./build; rm ./libs/SCRCPY/*; rm ./nohup.out");
-            main();
         } else if (input == "2") {
             system("ln -s ./libs/SCRCPY/ ./");
-            main();
-        } else {
-            main();
         }
-    }
-    else if (input == "e1"){
+        main();
+    } else if (input == "e1"){
         system("cat ~/.android-toolkit/README.md");
 
         std::cout << "\n\nPress ENTER to continue.";
         std::getline(std::cin, null);
         main();
-    }
-    
-    {
+    } else {
         std::cout << "Exiting Android Toolkit...\n\n";
-
         return 0;
     }
-
 }

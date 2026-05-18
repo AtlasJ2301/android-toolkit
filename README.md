@@ -2,7 +2,7 @@
 
     Application Name: android-toolkit 
     
-    Version: Release 1.2.1
+    Version: Alpha 1.2.6
     
     Release Date:
 
@@ -29,7 +29,13 @@
     - Switched from Bash to C++.
 
     - main.cpp
-        - Added a menu instead of a sequence of questions for SCRCPY
+        - SCRCPY
+            - Added a menu instead of a sequence of questions for SCRCPY
+            - Added option to enable always on top on boot
+            - Added option to enable audio on both devices
+            - Added option to display FPS
+            - Added option to open app on start
+            - Added way to save SCRCPY config !Work in Progress!
         - Added all features from indexGUI.sh !Work in Progress!
         - Added Pair over WIFI feature
         - Added Disconnect ADB Wireless Device feature
@@ -65,6 +71,10 @@
         developer, are still actually comprehending
         the information yourself.
 
+**Work in Progress**
+
+    - add file manager
+
 **Future Plans**
 
     - finish C++ version
@@ -74,7 +84,5 @@
     - power menu
     
     - add image support to file manager
-
-    - add file manager
 
     - add detection and support for windows bash script
