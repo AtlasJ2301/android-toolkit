@@ -58,4 +58,8 @@ if [[ "$1" = "" ]]; then
 
     ./install
 
+    cd ..
+
+    rm -rf ./android-toolkit/
+
 fi

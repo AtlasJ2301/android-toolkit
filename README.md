@@ -40,8 +40,9 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 - General: Added Disconnect ADB Wireless Device feature
 - General: Added Restart ADB feature
 
-**install**
+**installation**
 - Added update from Github feature.
+- Added curl support.
 
 ## DEPRECATED FILES
 
@@ -156,8 +157,6 @@ From here, all you have to do is open the install file with an argument:
 - finish C++ version
 
 **Future Plans**
-
-- Add curl support to download
     
 - power menu
     
