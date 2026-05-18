@@ -48,22 +48,14 @@ if [[ "$1" = "screenrecord" ]]; then
 
 fi
 
-# curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh curl | sh
+# curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh curl | bash
 
-if [[ "$1" = "curl" ]]; then
+if [[ "$1" = "" ]]; then
 
     git clone https://github.com/AtlasJ2301/android-toolkit
 
     cd ./android-toolkit/
 
     ./install
-
-    read null
-
-fi
-
-if [[ "$1" = "" ]]; then
-
-    printf "Developer Error, no argument provided"
 
 fi
