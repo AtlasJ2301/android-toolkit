@@ -11,7 +11,7 @@ Supported Platforms
 
 ## NOTES
 
-- If you wish for SCRCPY capabilities, you must compile the source code and obtain the SCRCPY files yourself. To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, to the SCRCPY link folder in the projects root folder before compiling.
+If you wish for SCRCPY capabilities, you must compile the source code and obtain the SCRCPY files yourself. To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, to the SCRCPY link folder in the projects root folder before compiling.
 
 ## SOURCES
 
@@ -58,6 +58,29 @@ Supported Platforms
 
 ### INSTALLATION
 
+> There are two methods to doing this. Curl, which is much easier, or manual, which though being harder, is still easy. We'll start with curl.
+
+#### Curl
+
+If you do not have curl installed, run this command:
+    sudo apt install curl
+
+- sudo: Run as superuser (Lets command be ran with root access).
+- apt: A place to install linux packages from.
+
+From here it is as easy as running a single command:
+    curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh curl | sh
+
+From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
+
+To run it, you can either open it from the start menu (Super / Windows Button) or by typing this command:
+    android-toolkit
+
+If you need help, type this command:
+    android-toolkit --help
+
+#### Manual Install
+
 **Locating the Folder**
 
 > Generally, you should keep downloads somewhere in your home folder unless you use something like a separate hard drive, but for this demonstration I will show you how to set it up in the Downloads folder.
@@ -81,8 +104,6 @@ If you do not have git installed, run this command:
 
 > To copy and paste from and to a terminal, instead of just using CTRL + C or CTRL + V, you have to use CTRL + SHIFT + C and CTRL + SHIFT + V.
 
-- sudo: Run as superuser (Lets command be ran with root access).
-- apt: A place to install linux packages from.
 - git: The package to interact with Git and Github from a computer.
 
 To pull the github files, run this command:
