@@ -1,5 +1,7 @@
 # Welcome to Android Toolkit!
 
+![Android Toolkit Icon](./icon.png)
+
 ## INFO
 
 - Application Name: android-toolkit 
