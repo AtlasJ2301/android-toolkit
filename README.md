@@ -1,6 +1,6 @@
 # Welcome to Android Toolkit!
 
-!(https://github.com/AtlasJ2301/android-toolkit/blob/main/icon.png?raw=true)
+![Android Toolkit Icon](https://github.com/AtlasJ2301/android-toolkit/blob/main/icon.png?raw=true)
 
 ## INFO
 
