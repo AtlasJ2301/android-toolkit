@@ -51,39 +51,31 @@ fi
 # curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh curl | bash
 
 if [[ "$1" = "" ]]; then
+    if [[ "$(uname)" = "Linux" ]]; then
 
-    printf "Implement SCRCPY?\n\n[y/n] > "
-    read input
+        if [[ "$(uname -m)" = "x86_64" ]]; then
 
-    if [[ "$input" = "y" || "$input" = "Y" ]]; then
+            wget https://github.com/Genymobile/scrcpy/releases/download/v4.0/scrcpy-linux-x86_64-v4.0.tar.gz    
 
-        if [[ "$(uname)" = "Linux" ]]; then
+            if [[ -d ./SCRCPY/ ]]; then
 
-            if [[ "$(uname -m)" = "x86_64" ]]; then
-
-                wget https://github.com/Genymobile/scrcpy/releases/download/v4.0/scrcpy-linux-x86_64-v4.0.tar.gz    
-
-                if [[ -d ./SCRCPY/ ]]; then
-
-                    rm -rf ./SCRCPY/
-
-                fi
-
-                mkdir SCRCPY
-
-                tar -xzf ./scrcpy-linux-x86_64-v4.0.tar.gz
-
-                mv ./scrcpy-linux-x86_64-v4.0/* ./SCRCPY/
-
-            else
-
-                printf "Architectures other than x86_64 on Linux do not have a precompiled SCRCPY binary.\n\nIf you wish for this support, you can compile it yourself at https://github.com/genymobile/scrcpy and install manually using the install file on android-toolkit."
+                rm -rf ./SCRCPY/
 
             fi
 
+            mkdir SCRCPY
+
+            tar -xzf ./scrcpy-linux-x86_64-v4.0.tar.gz
+
+            mv ./scrcpy-linux-x86_64-v4.0/* ./SCRCPY/
+
+        else
+
+            printf "Architectures other than x86_64 on Linux do not have a precompiled SCRCPY binary.\n\nIf you wish for this support, you can compile it yourself at https://github.com/genymobile/scrcpy and install manually using the install file on android-toolkit."
+
         fi
 
-        read null
+    fi
     
     fi
 
