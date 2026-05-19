@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "" > ./libs/SCRCPY/githubRecognize
+printf "" > ./libs/SCRCPY/null
 
 if [[ "$1" = "--help" ]]; then
     printf "\nUsed to install android-toolkit to the system.\n\nAndroid Toolkit: An easy to use ADB interface\n\nUsage:\n\n-d       Compile as developer\n-r       Uninstall android-toolkit from device\n-s       Creates shortcut to implement SCRCPY\n-u       Update android-toolkit from github.\n"
@@ -59,7 +59,7 @@ fi
     cp ./icon.png ~/.android-toolkit/icon.png
     cp ./build/android-toolkit ~/.android-toolkit/android-toolkit
 
-    printf "[Desktop Entry]\nName=Android Toolkit\nExec=gnome-terminal -- /home/$USER/.android-toolkit/android-toolkit\nType=Application\nIcon=/home/$USER/.android-toolkit/icon.png\nComment=An Easy to use ADB interface" > "/home/$USER/.android-toolkit/android-toolkit.desktop"
+    printf "[Desktop Entry]\nName=Android Toolkit\nExec=gnome-terminal --geometry=115x40 -- /home/$USER/.android-toolkit/android-toolkit\nType=Application\nIcon=/home/$USER/.android-toolkit/icon.png\nComment=An Easy to use ADB interface" > "/home/$USER/.android-toolkit/android-toolkit.desktop"
     sudo cp -f ./libs/android-toolkit /usr/bin/android-toolkit
     sudo chmod +x /usr/bin/android-toolkit
     cp ~/.android-toolkit/android-toolkit.desktop ~/.local/share/applications
@@ -76,11 +76,11 @@ fi
     fi
     if [[ "$1" = "-d" || "$2" = "-d" ]]; then
         rm ./libs/SCRCPY/*
-        printf "" > ./libs/SCRCPY/githubRecognize
+        printf "" > ./libs/SCRCPY/null
     fi
     read -p "Press ENTER to continue." null
    
 
-    gnome-terminal -- ~/.android-toolkit/android-toolkit
+    gnome-terminal --geometry=115x40 -- ~/.android-toolkit/android-toolkit
 
 fi

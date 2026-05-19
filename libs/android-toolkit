@@ -13,7 +13,7 @@ fi
 
 if [[ "$1" = "-t" ]]; then
 
-    terminal="gnome-terminal -- "
+    terminal="gnome-terminal --geometry=115x40 -- "
 
 fi
 

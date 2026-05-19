@@ -1,32 +1,32 @@
-# Welcome to Android Toolkit!
+# 👋 Welcome to Android Toolkit!
 
 ![Android Toolkit Icon](./icon.png)
 
-## INFO
+## ℹ️ INFO
 
 - Application Name: android-toolkit 
-- Version: Alpha v1.2.6
+- Version: Beta v1.4.9
 - Release Date: May 18, 2026
 
 Supported Platforms
 - Linux
 
-## NOTES
+## 📝 NOTES
 
 If you wish for SCRCPY capabilities, you must compile the source code and obtain the SCRCPY files yourself. To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, to the SCRCPY link folder in the projects root folder before compiling.
 
-## SOURCES
+## 🔗 SOURCES
 
 - [SCRCPY](https://github.com/Genymobile/scrcpy/releases)
 - [ADB](https://developer.android.com/tools/adb)
 
-## INSTALLATION
+## 🛠️ INSTALLATION
 
 - install Simply run the install file in the projects root folder.
 - For extra options,
 - curl - !Work in Progress!
 
-## RELEASE NOTES
+## 📋 RELEASE NOTES
 
 **Switched from Bash to C++**
 
@@ -36,53 +36,60 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 - SCRCPY: Added option to enable audio on both devices
 - SCRCPY: Added option to display FPS
 - SCRCPY: Added option to open app on start
-- SCRCPY: Added way to save SCRCPY config !Work in Progress!
+- SCRCPY: Added way to save SCRCPY config
 - General: Added all features from indexGUI.sh !Work in Progress!
-- General: Added Pair over WIFI feature
-- General: Added Disconnect ADB Wireless Device feature
-- General: Added Restart ADB feature
+- General: Added Bold headers
+- ADB Connection: Added Pair over WIFI feature
+- ADB Connection: Added Disconnect ADB Wireless Device feature
+- ADB Connection: Added Restart ADB feature
+- System: Added ADB Shell feature
+- Power: Added Restart device feature
 
 **installation**
 - Added update from Github feature.
 - Added curl support.
 
-## DEPRECATED FILES
+**Reformatted README.md**
+
+## ⛓️‍💥 DEPRECATED FILES
 
 - As of Beta 0.3.4, index.sh is deprecated.
 - As of Beta 1.0.0, indexGUI.sh and all accompanying files are deprecated.
 
-## CONTRIBUTORS
+## 🤝 CONTRIBUTORS
 
 - [Atlas Junifer](https://github.com/AtlasJ2301)
 
-## BEGINNER HELP
+## 🛟 BEGINNER HELP
 
 > We all struggled with linux at some point, so here is the place for those people.
 
-### INSTALLATION
+### 🛠️ INSTALLATION
 
 > There are two methods to doing this. Curl, which is much easier, or manual, which though being harder, is still easy. We'll start with curl.
 
-#### Curl
+#### 💪 Curl
 
 If you do not have curl installed, run this command:
-    sudo apt install curl
+    - sudo apt install curl
+
+> To copy and paste from and to a terminal, instead of just using CTRL + C or CTRL + V, you have to use CTRL + SHIFT + C and CTRL + SHIFT + V.
 
 - sudo: Run as superuser (Lets command be ran with root access).
 - apt: A place to install linux packages from.
 
 From here it is as easy as running a single command:
-    curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash -s -- curl
+    - curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
 
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
 
 To run it, you can either open it from the start menu (Super / Windows Button) or by typing this command:
-    android-toolkit
+    - android-toolkit
 
 If you need help, type this command:
-    android-toolkit --help
+    - android-toolkit --help
 
-#### Manual Install
+#### ⚙️ Manual Install
 
 **Locating the Folder**
 
@@ -91,7 +98,7 @@ If you need help, type this command:
 Open a terminal (CTRL + ALT + T).
 
 Where do you want to download it? If you want something like your downloads file, you would run the command:
-    cd /home/$USER/Downloads
+    - cd /home/$USER/Downloads
 
 - cd: Change Directory (Folder).
 - /home/$USER/Downloads: The path to change directory to to.
@@ -103,19 +110,17 @@ Where do you want to download it? If you want something like your downloads file
 From here, you will want to pull the files from github.
 
 If you do not have git installed, run this command:
-    sudo apt install git
-
-> To copy and paste from and to a terminal, instead of just using CTRL + C or CTRL + V, you have to use CTRL + SHIFT + C and CTRL + SHIFT + V.
+    - sudo apt install git
 
 - git: The package to interact with Git and Github from a computer.
 
 To pull the github files, run this command:
-    git clone https://github.com/AtlasJ2301/android-toolkit
+    - git clone https://github.com/AtlasJ2301/android-toolkit
 
 **Installing to your System**
 
 Next you will want to install android-toolkit to your system. To do this, simply run the install file. Open the file in the same terminal by using this command:
-    ./install
+    - ./install
 
 - ./: Open a file in a relative directory.
 - install: This is the file to be opened.
@@ -127,24 +132,24 @@ Next you will want to install android-toolkit to your system. To do this, simply
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
 
 To run it, you can either open it from the start menu (Super / Windows Button) or by typing this command:
-    android-toolkit
+    - android-toolkit
 
 If you need help, type this command:
-    android-toolkit --help
+    - android-toolkit --help
 
-### UPDATING
+### 🔄 UPDATING
 
 **Running Install File**
 
 Recall where you kept the download at. Change your directory via this command:
-    cd /path/to/directory/
+    - cd /path/to/directory/
 
 From here, all you have to do is open the install file with an argument:
-    ./install -u
+    - ./install -u
 
 - -u: Update download from Github.
 
-## DEVELOPMENT
+## 💻 DEVELOPMENT
 
 **AI USAGE**
 
