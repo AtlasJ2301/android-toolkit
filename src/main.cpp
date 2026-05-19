@@ -34,7 +34,7 @@ std::string home = getenv("HOME");
 // Conditions
 bool isSCRCPYImplemented;
 bool isDebug = std::filesystem::exists(home + "/.android-toolkit/isDebug");
-std::string version = "Beta v1.4.9";
+std::string version = "Beta v1.4.11";
 
 // Todo
 // Line ~573

@@ -5,7 +5,7 @@
 ## ℹ️ INFO
 
 - Application Name: android-toolkit 
-- Version: Beta v1.4.9
+- Version: Beta v1.4.11
 - Release Date: May 18, 2026
 
 Supported Platforms
@@ -44,6 +44,9 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 - ADB Connection: Added Restart ADB feature
 - System: Added ADB Shell feature
 - Power: Added Restart device feature
+- Power: Added Shutdown device feature
+
+**Specified Terminal size to be 115x40**
 
 **installation**
 - Added update from Github feature.
