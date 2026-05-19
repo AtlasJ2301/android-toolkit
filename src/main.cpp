@@ -3,14 +3,11 @@
 int main();
 
 // Function Variables
-std::string adb = "~/.android-toolkit/libs/adb ";
 std::string backup;
-std::string file;
 std::string path;
 std::string port;
 std::string ip;
 std::string package;
-std::string cmd;
 std::string display;
 
 // SCRCPY Variables
@@ -26,18 +23,19 @@ std::string appl; // Parsed argument
 std::string scrcpyConfig; // Contents of SCRCPY-config.txt
 
 // Global Variables
+std::string adb = "~/.android-toolkit/libs/adb ";
+std::string cmd;
 std::string user;
+std::string file;
 std::string input;
 std::string null;
 std::string home = getenv("HOME");
+std::string tmp;
 
 // Conditions
 bool isSCRCPYImplemented;
 bool isDebug = std::filesystem::exists(home + "/.android-toolkit/isDebug");
-std::string version = "Beta v1.4.11";
-
-// Todo
-// Line ~573
+std::string version = "Beta v1.4.14";
 
 void scrcpy() {
     system("clear");
@@ -135,17 +133,16 @@ void scrcpy() {
 
 int main() {
     system("clear");
-
     std::cout << "\e[1mWelcome to Android Toolkit " << version << "!\n\nADB Connection:\n\e[ma1. Pair over WIFI\na2. Disconnect ADB Wireless Device\na3. List Devices\na4. Restart ADB\n\n\e[1mPackage Management:\n\e[mb1. Install\nb2. Uninstall\nb3. Re-Install System Package\nb4. List Packages\nb5. Debloat\nb6. Backup / Restore\nb7. Open Package\n\n\e[1mFile Management:\n\e[mc1. Push / Pull\nc2. File Manager\n\n\e[1mVisual Tools:\n\e[md1. SCRCPY";
 
     if (std::filesystem::exists(home + "/.android-toolkit/libs/SCRCPY/scrcpy") == false) {
         std::cout << " (Not Implemented)";
         isSCRCPYImplemented = false;
     } else { isSCRCPYImplemented = true; }
-    std::cout << "\nd2. Screenshot / Record\n\n\e[1mPower:\n\e[me1. Reboot\n\n\e[1mSystem:\n\e[mf1. ADB Shell";
+    std::cout << "\nd2. Screenshot / Record\n\n\e[1mPower:\n\e[me1. Reboot\n\n\e[1mSystem:\n\e[mf1. ADB Shell\n\n\e[1mMisc. Settings:\n\e[mg1. Display README";
 
     if (isDebug == true) {
-        std::cout << "\n\n\e[1mDeveloper Tools:\n\e[mdev. Debug Settings\ndev1. Display README.md";
+        std::cout << "\n\n\e[1mDeveloper Tools:\n\e[mdev. Debug Settings";
     }
 
     std::cout << "\n\n> ";
@@ -433,7 +430,7 @@ int main() {
             }
         }
     } else if (input == "c2") {
-        while (std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\nPaths are absolute.\nType Exit to exit.\n\n> " && std::getline(std::cin, path)) {
+        while (std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\nPaths are absolute.\nType Exit to exit.\nType File to open file options.\n\n> " && std::getline(std::cin, path)) {
             system("clear");
             if (path == "exit" || path == "Exit") {
                 break;
@@ -572,9 +569,12 @@ int main() {
         main();
     }
     
-    else if (input == "dev1" && isDebug == true){
-        // Replace this with ifstream
-        system("cat ~/.android-toolkit/README.md");
+    else if (input == "g1"){
+        std::cout << "\e[1mREADME\n\n\e[m";
+        std::ifstream file(home + "/.android-toolkit/README.md");
+        while (std::getline(file, tmp)) {
+            std::cout << tmp << std::endl;
+        }
 
         std::cout << "\n\nPress ENTER to continue.";
         std::getline(std::cin, null);

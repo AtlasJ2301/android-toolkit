@@ -5,8 +5,8 @@
 ## ℹ️ INFO
 
 - Application Name: android-toolkit 
-- Version: Beta v1.4.11
-- Release Date: May 18, 2026
+- Version: Beta v1.4.14
+- Release Date: May 19, 2026
 
 Supported Platforms
 - Linux
@@ -22,9 +22,11 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 
 ## 🛠️ INSTALLATION
 
-- install Simply run the install file in the projects root folder.
-- For extra options,
-- curl - !Work in Progress!
+- install Simply run the install file in the projects root folder. use ./install --help for options.
+- curl through this command:
+    ```bash
+    curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
+    ```
 
 ## 📋 RELEASE NOTES
 
@@ -45,12 +47,14 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 - System: Added ADB Shell feature
 - Power: Added Restart device feature
 - Power: Added Shutdown device feature
+- Misc: Added view README.md feature
 
 **Specified Terminal size to be 115x40**
 
 **installation**
 - Added update from Github feature.
 - Added curl support.
+- Added SCRCPY implementation to curl.
 
 **Reformatted README.md**
 
@@ -74,7 +78,9 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 #### 💪 Curl
 
 If you do not have curl installed, run this command:
-    - sudo apt install curl
+    ```bash
+    sudo apt install curl
+    ```
 
 > To copy and paste from and to a terminal, instead of just using CTRL + C or CTRL + V, you have to use CTRL + SHIFT + C and CTRL + SHIFT + V.
 
@@ -82,15 +88,21 @@ If you do not have curl installed, run this command:
 - apt: A place to install linux packages from.
 
 From here it is as easy as running a single command:
-    - curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
+    ```bash
+    curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
+    ```
 
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
 
 To run it, you can either open it from the start menu (Super / Windows Button) or by typing this command:
-    - android-toolkit
+    ```bash
+    android-toolkit
+    ```
 
 If you need help, type this command:
-    - android-toolkit --help
+    ```bash
+    android-toolkit --help
+    ```
 
 #### ⚙️ Manual Install
 
@@ -101,7 +113,9 @@ If you need help, type this command:
 Open a terminal (CTRL + ALT + T).
 
 Where do you want to download it? If you want something like your downloads file, you would run the command:
-    - cd /home/$USER/Downloads
+    ```bash
+    cd /home/$USER/Downloads
+    ```
 
 - cd: Change Directory (Folder).
 - /home/$USER/Downloads: The path to change directory to to.
@@ -113,17 +127,23 @@ Where do you want to download it? If you want something like your downloads file
 From here, you will want to pull the files from github.
 
 If you do not have git installed, run this command:
-    - sudo apt install git
+    ```bash
+    sudo apt install git
+    ```
 
 - git: The package to interact with Git and Github from a computer.
 
 To pull the github files, run this command:
-    - git clone https://github.com/AtlasJ2301/android-toolkit
+    ```bash
+    git clone https://github.com/AtlasJ2301/android-toolkit
+    ```
 
 **Installing to your System**
 
 Next you will want to install android-toolkit to your system. To do this, simply run the install file. Open the file in the same terminal by using this command:
-    - ./install
+    ```bash
+    ./install
+    ```
 
 - ./: Open a file in a relative directory.
 - install: This is the file to be opened.
@@ -135,20 +155,28 @@ Next you will want to install android-toolkit to your system. To do this, simply
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
 
 To run it, you can either open it from the start menu (Super / Windows Button) or by typing this command:
-    - android-toolkit
+    ```bash
+    android-toolkit
+    ```
 
 If you need help, type this command:
-    - android-toolkit --help
+    ```bash
+    android-toolkit --help
+    ```
 
 ### 🔄 UPDATING
 
 **Running Install File**
 
 Recall where you kept the download at. Change your directory via this command:
-    - cd /path/to/directory/
+    ```bash
+    cd /path/to/directory/
+    ```
 
 From here, all you have to do is open the install file with an argument:
-    - ./install -u
+    ```bash
+    ./install -u
+    ```
 
 - -u: Update download from Github.
 
@@ -168,8 +196,6 @@ From here, all you have to do is open the install file with an argument:
 
 **Future Plans**
     
-- power menu
-    
 - add image support to file manager (xdg-open?)
 
-- add detection and support for windows bash script
+- add detection and support for windows or OSX
