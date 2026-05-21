@@ -11,11 +11,13 @@
 Platformes Compatibles
 - Linux
 
-## 📝 NOTES
+## 📝 NOTAS
 
-Si quieres compatibilidad con SCRCPY, necesitas compliar el código fuente. Hacer esa, obtienes el programa a 'https://github.com/Genymobile/scrcpy/releases' y extrae el archivo, no la carpeta, a la carpeta SCRCPY de proyecto en la carpeta raỉz antes de compliar.
+Si quieres compatabilidad para SCRCPY, necesitas compliar el código fuente. Hacer esa, obtienes el programa a 'https://github.com/Genymobile/scrcpy/releases' y extrae el archivos -no la carpeta- en la carpeta SCRCPY de el proyecto en la carpeta raỉz antes de compliando.
 
-## 🔗 SOURCES
+## 🔗 FUENTES
+
+> ¡Vas darlos ellos un estrellos!
 
 - [SCRCPY](https://github.com/Genymobile/scrcpy/releases)
 - [ADB](https://developer.android.com/tools/adb)
@@ -31,11 +33,11 @@ Si quieres compatibilidad con SCRCPY, necesitas compliar el código fuente. Hace
 
 
 
-## 📋 RELEASE NOTES
+## 📋 NOTAS LIBERAR
 
-**Switched from Bash to C++**
+**Cambiar de Bash a C++**
 
-**main.cpp**
+**principal.cpp**
 - SCRCPY: Added a menu instead of a sequence of questions for SCRCPY
 - SCRCPY: Added option to enable always on top on boot
 - SCRCPY: Added option to enable audio on both devices
