@@ -5,7 +5,7 @@
 ## ℹ️ INFO
 
 - Application Name: android-toolkit 
-- Version: Beta v1.4.14.b006
+- Version: Beta v1.5.23.b020
 - Release Date: May 19, 2026
 
 Supported Platforms
@@ -216,7 +216,5 @@ From here, all you have to do is open the install file with an argument:
 - add file manager
 
 **Future Plans**
-    
-- add image support to file manager (xdg-open?)
 
 - add detection and support for windows or OSX

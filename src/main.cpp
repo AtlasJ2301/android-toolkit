@@ -40,7 +40,7 @@ std::string output;
 // Conditions
 bool isSCRCPYImplemented;
 bool isDebug = std::filesystem::exists(home + "/.android-toolkit/isDebug");
-std::string version = "Beta v1.4.15.b007";
+std::string version = "Beta v1.5.23.b020";
 
 void scrcpy() {
     system("clear");
