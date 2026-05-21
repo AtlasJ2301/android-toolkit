@@ -1,29 +1,31 @@
-# 👋 Welcome to Android Toolkit!
+# 👋 !Bienvenidos a Android Toolkit¡
 
 ![Android Toolkit Icon](./icon.png)
 
-## ℹ️ INFO
+## ℹ️ INFORMACION
 
-- Application Name: android-toolkit 
-- Version: Beta v1.5.23.b020
-- Release Date: May 21, 2026
+- El Nombre de la Solicitud: android-toolkit 
+- Versiỏn: Beta v1.5.23.b020
+- Fecha de Lanzamiento: May 21, 2026
 
-Supported Platforms
+Platformes Compatibles
 - Linux
 
-## 📝 NOTES
+## 📝 NOTAS
 
-If you wish for SCRCPY capabilities, you must compile the source code and obtain the SCRCPY files yourself. To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, to the SCRCPY link folder in the projects root folder before compiling.
+Si quieres compatabilidad para SCRCPY, necesitas compliar el código fuente. Hacer esa, obtienes el programa a 'https://github.com/Genymobile/scrcpy/releases' y extrae el archivos -no la carpeta- en la carpeta SCRCPY de el proyecto en la carpeta raỉz antes de compliando.
 
-## 🔗 SOURCES
+## 🔗 FUENTES
+
+> ¡Vas darlos ellos un estrellos!
 
 - [SCRCPY](https://github.com/Genymobile/scrcpy/releases)
 - [ADB](https://developer.android.com/tools/adb)
 
 ## 🛠️ INSTALLATION
 
-- install Simply run the install file in the projects root folder. use ./install --help for options.
-- curl through this command:
+- Instalar: Ejecute el solicitud en el carpet raỉz de la proyecto. Usas ´./instalar --ayuda´ por mas opciỏnes.
+- Curl: curl a travẻs de esta dominio:
 
     ```bash
     curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
@@ -31,11 +33,11 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 
 
 
-## 📋 RELEASE NOTES
+## 📋 NOTAS LIBERAR
 
-**Switched from Bash to C++**
+**Cambiar de Bash a C++**
 
-**main.cpp**
+**principal.cpp**
 - SCRCPY: Added a menu instead of a sequence of questions for SCRCPY
 - SCRCPY: Added option to enable always on top on boot
 - SCRCPY: Added option to enable audio on both devices

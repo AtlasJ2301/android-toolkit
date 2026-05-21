@@ -50,7 +50,7 @@ else
 
 fi
 
-if [[ "$1" = "--help" ]]; then
+if [[ "$1" = "--ayuda" ]]; then
 
     printf "\nUsed to install android-toolkit to the system.\n\nAndroid Toolkit: An easy to use ADB interface\n\nUsage:\n\n-d       Compile as developer\n-r       Uninstall android-toolkit from device\n-s       Creates shortcut to implement SCRCPY\n-u       Update android-toolkit from github.\n"
     exit
