@@ -1,19 +1,19 @@
-# 👋 Welcome to Android Toolkit!
+# 👋 !Bienvenidos a Android Toolkit¡
 
 ![Android Toolkit Icon](./icon.png)
 
-## ℹ️ INFO
+## ℹ️ INFORMACION
 
-- Application Name: android-toolkit 
-- Version: Beta v1.5.23.b020
-- Release Date: May 21, 2026
+- El Nombre de la Solicitud: android-toolkit 
+- Versiỏn: Beta v1.5.23.b020
+- Fecha de Lanzamiento: May 21, 2026
 
-Supported Platforms
+Platformes Compatibles
 - Linux
 
 ## 📝 NOTES
 
-If you wish for SCRCPY capabilities, you must compile the source code and obtain the SCRCPY files yourself. To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, to the SCRCPY link folder in the projects root folder before compiling.
+Si quieres compatibilidad con SCRCPY, necesitas compliar el código fuente. Hacer esa, obtienes el programa a 'https://github.com/Genymobile/scrcpy/releases' y extrae el archivo, no la carpeta, a la carpeta SCRCPY de proyecto en la carpeta raỉz antes de compliar.
 
 ## 🔗 SOURCES
 
@@ -22,8 +22,8 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 
 ## 🛠️ INSTALLATION
 
-- install Simply run the install file in the projects root folder. use ./install --help for options.
-- curl through this command:
+- Instalar: Ejecute el solicitud en el carpet raỉz de la proyecto. Usas ´./instalar --ayuda´ por mas opciỏnes.
+- Curl: curl a travẻs de esta dominio:
 
     ```bash
     curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
