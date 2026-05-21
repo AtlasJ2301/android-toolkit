@@ -6,7 +6,7 @@
 
 - Application Name: android-toolkit 
 - Version: Beta v1.5.23.b020
-- Release Date: May 19, 2026
+- Release Date: May 21, 2026
 
 Supported Platforms
 - Linux
