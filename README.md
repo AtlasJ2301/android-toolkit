@@ -48,13 +48,21 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 - SCRCPY: Added option to enable audio on both devices
 - SCRCPY: Added option to display FPS
 - SCRCPY: Added option to open app on start
+- SCRCPY: Added option to keep screen on phone off
+- SCRCPY: Added option to disallow phone auto sleep while SCRCPY is on
 - SCRCPY: Added way to save SCRCPY config
 - General: Added all features from indexGUI.sh !Work in Progress!
 - General: Added Bold headers
 - ADB Connection: Added Pair over WIFI feature
 - ADB Connection: Added Disconnect ADB Wireless Device feature
 - ADB Connection: Added Restart ADB feature
+- File Manager: Added file open
+- File Manager: Added file editor
+- File Manager: Added Folder Delete
+- File Manager: Added Folder Copy
+- File Manager: Added Make Folder
 - System: Added ADB Shell feature
+- Restore/Backup: Added encryption key save and display.
 - Power: Added Restart device feature
 - Power: Added Confirmation to restart
 - Power: Added Shutdown device feature
@@ -216,5 +224,7 @@ From here, all you have to do is open the install file with an argument:
 - add file manager
 
 **Future Plans**
+
+- add appimage support
 
 - add detection and support for windows or OSX
