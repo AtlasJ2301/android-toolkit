@@ -20,6 +20,8 @@ std::string dbau; // Double Audio
 std::string dfps; // Display FPS
 std::string applName; // Application to be opened
 std::string appl; // Parsed argument
+std::string kdpo; // Keep Display On
+std::string kdfs; // Keep Display from Sleeping
 std::string scrcpyConfig; // Contents of SCRCPY-config.txt
 
 // Global Variables
@@ -31,29 +33,32 @@ std::string input;
 std::string null;
 std::string home = getenv("HOME");
 std::string tmp;
+std::string output;
+
+//450
 
 // Conditions
 bool isSCRCPYImplemented;
 bool isDebug = std::filesystem::exists(home + "/.android-toolkit/isDebug");
-std::string version = "Beta v1.4.14";
+std::string version = "Beta v1.4.15.b007";
 
 void scrcpy() {
     system("clear");
-    std::cout << "\e[1mSCRCPY\n\n\e[mPlease choose an option.\n\nNote: Im pretty sure that SCRCPY broke Desktop mode in v4.0 as it completely freezes the phone and restarts it, so until further updates I would advise against using it.\n\n";
+    std::cout << "\e[1mSCRCPY\n\n\e[mPlease choose an option.\n\n";
     if (scrcpyConfig != "") {
         std::cout << "Loaded SCRCPY config.\n";
     } else {
         std::cout << "\e[1mOptions Selected:\n\e[m";
-        if (dktp != "") { std::cout << "Desktop mode is on. (You should turn this off).\n"; } if (uhms != "") { std::cout << "Uhid Mouse is on.\n"; } if (uhkb != "") { std::cout << "Uhid Keyboard is on.\n"; } if (fscr != "") { std::cout << "Fullscreen is on\n"; } if (alot != "") { std::cout << "Always on Top is on\n"; } if (dbau != "") { std::cout << "Audio is on Both Devices\n"; } if (dfps != "") { std::cout << "Display FPS is on\n"; } if (appl != "") { std::cout << "Open Application " << applName << " on start\n"; }
+        if (dktp != "") { std::cout << "Desktop mode is on.\n"; } if (uhms != "") { std::cout << "Uhid Mouse is on.\n"; } if (uhkb != "") { std::cout << "Uhid Keyboard is on.\n"; } if (fscr != "") { std::cout << "Fullscreen is on\n"; } if (alot != "") { std::cout << "Always on Top is on\n"; } if (dbau != "") { std::cout << "Audio is on Both Devices\n"; } if (dfps != "") { std::cout << "Display FPS is on\n"; } if (appl != "") { std::cout << "Open Application " << applName << " on start\n"; } if (kdpo != "") { std::cout << "Device Screen will turn Off\n"; } if (kdfs != "") {std::cout << "Device will not Sleep\n"; }
     }
-    std::cout << "\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n5. Always on top\n6. Play Audio on Both Devices\n7. Print FPS\n8. Open Application\n\nType Exit to exit.\n\nType Save to save current settings or Load to run SCRCPY with saved settings.\n\nPress ENTER to continue\n\n> ";
+    std::cout << "\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n5. Always on top\n6. Play Audio on Both Devices\n7. Print FPS\n8. Open Application\n9. Turn Device Screen Off\n10. Prevent Screen from Sleeping\n\nType Exit to exit.\n\nType Save to save current settings or Load to run SCRCPY with saved settings.\n\nPress ENTER to continue\n\n> ";
     std::getline(std::cin, input);
 
     system("clear");
     if (input == "") {
         std::cout << "\e[1mSCRCPY - Run\n\n\e[m";
-        if (scrcpyConfig != "") {
-            cmd = home + "/.android-toolkit/libs/SCRCPY/scrcpy --max-fps=60 --video-bit-rate=2M" + dktp + uhms + uhkb + fscr + alot + dbau + dfps + appl;
+        if (scrcpyConfig == "") {
+            cmd = home + "/.android-toolkit/libs/SCRCPY/scrcpy --max-fps=60 --video-bit-rate=2M" + dktp + uhms + uhkb + fscr + alot + dbau + dfps + appl + kdpo + kdfs;
         } else {
             cmd = home + "/.android-toolkit/libs/SCRCPY/scrcpy --max-fps=60 --video-bit-rate=2M" + scrcpyConfig;
         }
@@ -96,6 +101,12 @@ void scrcpy() {
             system("clear");
             if (applName != "") { appl = " --start-app=" + applName; }
         } else { appl = ""; }
+        scrcpy();
+    } else if (input == "9") {
+        if (kdpo == "") { kdpo = " --turn-screen-off"; } else { kdpo = ""; }
+        scrcpy();
+    } else if (input == "10") {
+        if (kdfs == "") { kdfs = " --stay-awake"; } else { kdfs = ""; }
         scrcpy();
     } else if (input == "Save" || input == "save") {
         cmd = "printf '" + dktp + uhms + uhkb + fscr + alot + dbau + dfps + appl + "' > " + home + "/.android-toolkit/SCRCPY-config.txt";
@@ -158,22 +169,25 @@ int main() {
 
         } else {
             system("clear");
-            std::cout << "\e[1mAndroid Toolkit - Pair over WIFI\n\n\e[mPlease provide the IP's Port.\n\nEx: 192.168.0.116\n\n> ";
+            std::cout << "\e[1mAndroid Toolkit - Pair over WIFI\n\n\e[mPlease provide the IP's Port.\n\n" << ip << ":xxxxx\n\n> ";
             std::getline(std::cin, port);
 
+            system("clear");
             if (port == "") {
                 main();
             } else {
                 std::cout << "\e[1mAndroid Toolkit - Pair over WIFI\n\n\e[m";
-                cmd = "clear;" + adb + "pair " + ip + ":" + port;
+                cmd = adb + "pair " + ip + ":" + port;
                 system(cmd.c_str());
 
                 std::cout << "\nPress ENTER to continue.";
                 std::getline(std::cin, null);
                 system("clear");
-                std::cout << "\e[1mAndroid Toolkit - Pair over WIFI\n\n\e[mNow provide the IP's Port located under 'Device Name'.\n\n" << ip << ":xxxxx\n\n> ";
+
+                std::cout << "\e[1mAndroid Toolkit - Pair over WIFI\n\n\e[mNow provide the IP's Port located under 'IP address & Port'.\n\n" << ip << ":xxxxx\n\n> ";
                 std::getline(std::cin, port);
 
+                system("clear");
                 if (port == "") {
                     main();
                 } else {
@@ -320,12 +334,9 @@ int main() {
         } else if (input == "1") {
             std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[mPlease provide the path to the folder where the backup will be saved to.\n\n> ";
             std::getline(std::cin, path);
+            
             system("clear");
-
-            if (path == "") {
-                main();
-
-            } else {
+            if (path != "") {
                 std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[mPlease give a name to the backup.\n\n> ";
                 std::getline(std::cin, backup);
                 system("clear");
@@ -337,23 +348,44 @@ int main() {
                     cmd = adb + "backup -all -f " + path + "/" + backup + ".ab";
                     system(cmd.c_str());
 
-                    std::cout << "\nFinished.\n\nPress ENTER to continue.";
-                    std::getline(std::cin, null);
-                    main();
+                    system("clear");
+                    std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[mPlease provide the encryption key.\n\n> ";
+                    
+                    std::getline(std::cin, input);
+                    if (input != "") {
+                        std::ofstream encryptionKey(path + "/" + backup + "_encryptionKey.txt");
 
+                        encryptionKey << input;
+                        encryptionKey.close();
+
+                        std::cout << "\nFinished.\n\nPress ENTER to continue.";
+                        std::getline(std::cin, null);
+                    }
                 }
             }
+            main();
         } else if (input == "2") {
-            std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[mPlease provide the path to the backup file.\n\n> ";
-            std::getline(std::cin, backup);
+            std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[mPlease provide the path to the folder in which the backup file is stored.\n\n> ";
+            std::getline(std::cin, path);
             system("clear");
 
-            if (backup == "") {
-                main();
-            } else {
-                std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[m";
-                cmd = adb + "restore " + backup;
+            std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[mPlease provide the name of the backup (No extension).\n\n> ";
+            std::getline(std::cin, file);
+            system("clear");
+
+            std::cout << "\e[1mAndroid Toolkit - Backup / Restore\n\n\e[m";
+
+            if (file != "" && std::filesystem::exists(path + "/" + file + "_encryptionKey.txt")) {
+                std::ifstream encryptionKey(path + "/" + file + "_encryptionKey.txt");
+                std::getline(encryptionKey, output);
+                std::cout << "Your encryption key: " + output + "\n\n";
+            }
+
+            if (backup != "") {
+                cmd = adb + "restore " + path + "/" + file + ".ab";
                 system(cmd.c_str());
+
+                std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
 
                 std::getline(std::cin, null);
                 main();
@@ -430,40 +462,142 @@ int main() {
             }
         }
     } else if (input == "c2") {
-        while (std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\nPaths are absolute.\nType Exit to exit.\nType File to open file options.\n\n> " && std::getline(std::cin, path)) {
+        while (std::cout << "Please provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\nPaths are absolute.\nType Exit to exit.\nType File to open file options.\nType Folder to open folder options.\n\n> " && std::getline(std::cin, path)) {
             system("clear");
             if (path == "exit" || path == "Exit") {
                 break;
             } else if (path == "file" || path == "File") {
-                std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease choose an option.\n\n1. Delete file\n2. Copy File\n\n> ";
+                std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease choose an option.\n\n1. Delete file\n2. Copy File\n3. Open file\n4. Edit File\n\n> ";
                 std::getline(std::cin, input);
 
                 system("clear");
                 if (input == "1") {
-                    std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide the path to the file.\n\n> ";
+                    std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease provide a path on the device of a file to be deleted.\n\n> ";
+                    
                     std::getline(std::cin, file);
+                    system("clear");
                     if (file != "") {
                         std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[m";
                         cmd = adb + "shell rm /sdcard/" + file;
                         system(cmd.c_str());
 
+                        std::cout << "\n\nPress ENTER to continue.";
                         std::getline(std::cin, null);
                     }
                 } else if (input == "2") {
-                    std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide the path to the file to be copied\n\n> ";
+                    std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide the path on the device to the file that should be copied.\n\n> ";
+
                     std::getline(std::cin, file);
-                    
                     system("clear");
                     if (file != "") {
                         std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide the path where the file should be copied to.\n\n> ";
+                        
                         std::getline(std::cin, path);
-
                         system("clear");
                         if (path != "") {
-                            std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[m";
+                            std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[m" << file << path;
                             cmd = adb + "shell cp /sdcard/" + file + " /sdcard/" + path;
                             system(cmd.c_str());
 
+                            std::getline(std::cin, null);
+                        }
+                    }
+                        
+                } else if (input == "3") {
+                    std::cout << "\e[1mAndroid Toolkit - File Explorer\n\n\e[mPlease provide the path to the file to be opened.\n\n> ";
+
+                    std::getline(std::cin, file);
+                    system("clear");
+                    if (file != "") {
+                        if (!std::filesystem::exists("/tmp/.android-toolkit/openFile") == true) {
+                            system("rm -rf /tmp/.android-toolkit/openFile/; mkdir -p /tmp/.android-toolkit/openFile");
+                        }
+
+                        cmd = adb + "pull " + file + " /tmp/.android-toolkit/openFile";
+                        system(cmd.c_str());
+
+                        system("xdg-open /tmp/.android-toolkit/openFile/*");
+
+                        std::getline(std::cin, null);
+                    }   
+                } else if (input == "4") {
+                    std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease provide the path to the file to be edited.\n\n> ";
+
+                    std::getline(std::cin, file);
+                    system("clear");
+                    if (file != "") {
+                        std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[m";
+                        if (!std::filesystem::exists("/tmp/.android-toolkit/editFile")) {
+                            system("rm -rf /tmp/.android-toolkit/editFile/; mkdir -p /tmp/.android-toolkit/editFile/");
+                        }
+
+                        cmd = adb + "pull /sdcard/" + file + " /tmp/.android-toolkit/editFile/";
+                        system(cmd.c_str());
+
+                        std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
+                        std::getline(std::cin, null);
+                    }
+                }
+            } else if (path == "folder" || path == "Folder") {
+                std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease choose an option.\n\n1. Delete Folder\n2. Copy Folder\n3. Make Folder\n\n> ";
+
+                std::getline(std::cin, input);
+                system("clear");
+                if (input == "1") {
+                    std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease provide the path to the folder on the device to be deleted\n\n> ";
+
+                    std::getline(std::cin, path);
+                    system("clear");
+                    if (path != "") {
+                        std::cout << "\e[1mAndroid Toolkit - File Manager\e[m\n\n";
+                        cmd = adb + "shell rm -r /sdcard/" + path;
+                        system(cmd.c_str());
+
+                        std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
+                        std::getline(std::cin, null);
+                    }
+                    system("clear");
+                } else if (input == "2") {
+                    std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease provide the path to the folder to be copied.\n\n> ";
+
+                    std::getline(std::cin, file);
+                    system("clear");
+                    if (file != "") {
+                        std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease provide the path for the folder to be copied to.\n\n> ";
+
+                        std::getline(std::cin, path);
+                        system("clear");
+                        if (path != "") {
+                            std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[m";
+                            cmd = adb + "shell cp -R /sdcard/" + file + " /sdcard/" + path;
+                            system(cmd.c_str());
+
+                            std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
+                            std::getline(std::cin, null);
+                            system("clear");
+                            if (null == "dispVar" && isDebug == true) {
+                                std::cout << "file " << file << "\npath " << path << "\ncmd " << cmd;
+                                std::getline(std::cin, null);
+                            }
+                        }
+                    }
+                } else if (input == "3") {
+                    std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease provide the path for the folder to be created in.\n\n> ";
+
+                    std::getline(std::cin, path);
+                    system("clear");
+                    if (path != "") {
+                        std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[mPlease provide a name for the folder.\n\n> ";
+                        
+                        std::getline(std::cin, file);
+                        system("clear");
+                        if (file != "") {
+                            std::cout << "\e[1mAndroid Toolkit - File Manager\n\n\e[m";
+
+                            cmd = adb + "shell mkdir /sdcard/" + path + "/" + file;
+                            system(cmd.c_str());
+
+                            std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
                             std::getline(std::cin, null);
                         }
                     }
@@ -545,14 +679,22 @@ int main() {
             }
         }
     } else if (input == "e1") {
-        std::cout << "\e[1mAndroid Toolkit - Restart Device\n\n\e[m";
-        std::cout << "Restarting Device...\n\n";
-        cmd = adb + "shell reboot";
-        system(cmd.c_str());
-        std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
-        
-        std::getline(std::cin, null);
+        std::cout << "\e[1mAndroid Toolkit - Restart\n\n\e[mType RESTART to continue.\n\n> ";
+
+        std::getline(std::cin, input);
+        system("clear");
+        if (input == "RESTART") {
+            std::cout << "\e[1mAndroid Toolkit - Restart Device\n\n\e[m";
+            std::cout << "Restarting Device...\n\n";
+            cmd = adb + "shell reboot";
+            system(cmd.c_str());
+            std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
+            
+            std::getline(std::cin, null);
+        }
+
         main();
+            
     } else if (input == "e2") {
         std::cout << "\e[1mAndroid Toolkit - Power Off Device\n\n\e[m";
         std::cout << "Powering Off Device...\n\n";
@@ -597,6 +739,9 @@ int main() {
         }
         main();
     } else {
+        if (std::filesystem::exists("/tmp/.android-toolkit/") == true) {
+            system("rm -rf /tmp/.android-toolkit/");
+        }
         std::cout << "Exiting Android Toolkit...\n\n";
         return 0;
     }

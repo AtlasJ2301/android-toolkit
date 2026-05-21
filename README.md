@@ -5,7 +5,7 @@
 ## ℹ️ INFO
 
 - Application Name: android-toolkit 
-- Version: Beta v1.4.14
+- Version: Beta v1.4.14.b006
 - Release Date: May 19, 2026
 
 Supported Platforms
@@ -24,8 +24,18 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 
 - install Simply run the install file in the projects root folder. use ./install --help for options.
 - curl through this command:
+
     ```bash
     curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
+    ```
+
+**You could also download a precompiled binary or compile it into an AppImage yourself!**
+
+- Download [appimagetool](https://github.com/AppImage/appimagetool) (Give them a star while you're at it!)
+- In the root folder of android-toolkit, run 
+
+    ```bash
+    ./install --appimagetool
     ```
 
 ## 📋 RELEASE NOTES
@@ -46,6 +56,7 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 - ADB Connection: Added Restart ADB feature
 - System: Added ADB Shell feature
 - Power: Added Restart device feature
+- Power: Added Confirmation to restart
 - Power: Added Shutdown device feature
 - Misc: Added view README.md feature
 
@@ -78,6 +89,7 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 #### 💪 Curl
 
 If you do not have curl installed, run this command:
+
     ```bash
     sudo apt install curl
     ```
@@ -88,6 +100,7 @@ If you do not have curl installed, run this command:
 - apt: A place to install linux packages from.
 
 From here it is as easy as running a single command:
+
     ```bash
     curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
     ```
@@ -95,11 +108,13 @@ From here it is as easy as running a single command:
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
 
 To run it, you can either open it from the start menu (Super / Windows Button) or by typing this command:
+
     ```bash
     android-toolkit
     ```
 
 If you need help, type this command:
+
     ```bash
     android-toolkit --help
     ```
@@ -113,6 +128,7 @@ If you need help, type this command:
 Open a terminal (CTRL + ALT + T).
 
 Where do you want to download it? If you want something like your downloads file, you would run the command:
+
     ```bash
     cd /home/$USER/Downloads
     ```
@@ -127,6 +143,7 @@ Where do you want to download it? If you want something like your downloads file
 From here, you will want to pull the files from github.
 
 If you do not have git installed, run this command:
+
     ```bash
     sudo apt install git
     ```
@@ -134,6 +151,7 @@ If you do not have git installed, run this command:
 - git: The package to interact with Git and Github from a computer.
 
 To pull the github files, run this command:
+
     ```bash
     git clone https://github.com/AtlasJ2301/android-toolkit
     ```
@@ -141,6 +159,7 @@ To pull the github files, run this command:
 **Installing to your System**
 
 Next you will want to install android-toolkit to your system. To do this, simply run the install file. Open the file in the same terminal by using this command:
+
     ```bash
     ./install
     ```
@@ -155,11 +174,13 @@ Next you will want to install android-toolkit to your system. To do this, simply
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!
 
 To run it, you can either open it from the start menu (Super / Windows Button) or by typing this command:
+
     ```bash
     android-toolkit
     ```
 
 If you need help, type this command:
+
     ```bash
     android-toolkit --help
     ```
@@ -169,11 +190,13 @@ If you need help, type this command:
 **Running Install File**
 
 Recall where you kept the download at. Change your directory via this command:
+
     ```bash
     cd /path/to/directory/
     ```
 
 From here, all you have to do is open the install file with an argument:
+
     ```bash
     ./install -u
     ```
@@ -191,8 +214,6 @@ From here, all you have to do is open the install file with an argument:
 **Work in Progress**
 
 - add file manager
-
-- finish C++ version
 
 **Future Plans**
     
