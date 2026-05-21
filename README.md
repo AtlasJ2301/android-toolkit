@@ -29,14 +29,7 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
     curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
     ```
 
-**You could also download a precompiled binary or compile it into an AppImage yourself!**
 
-- Download [appimagetool](https://github.com/AppImage/appimagetool) (Give them a star while you're at it!)
-- In the root folder of android-toolkit, run 
-
-    ```bash
-    ./install --appimagetool
-    ```
 
 ## 📋 RELEASE NOTES
 

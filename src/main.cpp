@@ -513,7 +513,7 @@ int main() {
                             system("rm -rf /tmp/.android-toolkit/openFile/; mkdir -p /tmp/.android-toolkit/openFile");
                         }
 
-                        cmd = adb + "pull " + file + " /tmp/.android-toolkit/openFile";
+                        cmd = adb + "pull " + "/sdcard/" + file + " /tmp/.android-toolkit/openFile";
                         system(cmd.c_str());
 
                         system("xdg-open /tmp/.android-toolkit/openFile/*");
@@ -533,6 +533,8 @@ int main() {
 
                         cmd = adb + "pull /sdcard/" + file + " /tmp/.android-toolkit/editFile/";
                         system(cmd.c_str());
+
+                        system("nano /tmp/.android-toolkit/editFile/*");
 
                         std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
                         std::getline(std::cin, null);

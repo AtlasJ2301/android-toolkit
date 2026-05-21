@@ -20,6 +20,16 @@ printf "" > ./libs/SCRCPY/null
 #
 #fi
 
+#README.md:
+#**You could also download a precompiled binary or compile it into an AppImage yourself!**
+#
+#- Download [appimagetool](https://github.com/AppImage/appimagetool) (Give them a star while you're at it!)
+#- In the root folder of android-toolkit, run 
+#
+#    ```bash
+#    ./install --appimagetool
+#    ```
+
 if [[ "$1" = "-d" ]] || [[ "$2" = "-d" ]] || [[ "$3" = "-d" ]]; then
 
     debug=true
