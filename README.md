@@ -6,7 +6,7 @@
 
 - Application Name: android-toolkit 
 - Version: Beta v1.5.23.b020
-- Release Date: May 21, 2026
+- Release Date: 
 
 Supported Platforms
 - Linux
@@ -32,41 +32,6 @@ If you wish for SCRCPY capabilities, you must compile the source code and obtain
 
 
 ## 📋 RELEASE NOTES
-
-**Switched from Bash to C++**
-
-**main.cpp**
-- SCRCPY: Added a menu instead of a sequence of questions for SCRCPY
-- SCRCPY: Added option to enable always on top on boot
-- SCRCPY: Added option to enable audio on both devices
-- SCRCPY: Added option to display FPS
-- SCRCPY: Added option to open app on start
-- SCRCPY: Added option to keep screen on phone off
-- SCRCPY: Added option to disallow phone auto sleep while SCRCPY is on
-- SCRCPY: Added way to save SCRCPY config
-- General: Added all features from indexGUI.sh !Work in Progress!
-- General: Added Bold headers
-- ADB Connection: Added Pair over WIFI feature
-- ADB Connection: Added Disconnect ADB Wireless Device feature
-- ADB Connection: Added Restart ADB feature
-- File Manager: Added file open
-- File Manager: Added file editor
-- File Manager: Added Folder Delete
-- File Manager: Added Folder Copy
-- File Manager: Added Make Folder
-- System: Added ADB Shell feature
-- Restore/Backup: Added encryption key save and display.
-- Power: Added Restart device feature
-- Power: Added Confirmation to restart
-- Power: Added Shutdown device feature
-- Misc: Added view README.md feature
-
-**Specified Terminal size to be 115x40**
-
-**installation**
-- Added update from Github feature.
-- Added curl support.
-- Added SCRCPY implementation to curl.
 
 **Reformatted README.md**
 
