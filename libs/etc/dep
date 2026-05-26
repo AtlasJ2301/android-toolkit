@@ -1,0 +1,42 @@
+install - Appimagetool integration
+
+if [[ "$1" = "--appimagetool" ]] || [[ "$2" = "--appimagetool" ]] || [[ "$3" = "--appimagetool" ]]; then
+    appimage=true
+else
+    appimage=false
+fi
+
+---
+
+if [[ "$appimage" = "true" ]]; then
+    if ! [[ "$2" = "--preserve-appimagetool" ]]; then
+        rm ./*.AppImage
+    else 
+        rm ./Android_Toolkit*
+    fi
+    cp ./build/android-toolkit ./
+    printf "#!/bin/bash\ncd '\$(dirname \$(pwd))'\nexec ./android-toolkit" > AppRun
+    printf "[Desktop Entry]\nType=Application\nName=Android Toolkit\nIcon=icon\nCategories=Utility;\nTerminal=true\nExec=./android-toolkit" > android-toolkit.desktop
+    printf "Please place the appimagetool .AppImage file into android-toolkit's project root.\n\nPress ENTER to continue."
+    read null
+    chmod +x ./*.AppImage
+    printf "Architecture: $(uname -m)"
+    ARCH="$(uname -m)" ./*.AppImage ./
+fi
+if [[ "$appimage" = "true" ]]; then
+    rm ./AppRun
+    rm ./android-toolkit.desktop
+    chmod +x ./Android_Toolkit*.AppImage
+    ./Android_Toolkit*.AppImage
+fi
+
+README.md - Appimagetool integration
+**You could also download a precompiled binary or compile it into an AppImage yourself!**
+
+- Download [appimagetool](https://github.com/AppImage/appimagetool) (Give them a star while you're at it!)
+- In the root folder of android-toolkit, run 
+
+```bash
+./install --appimagetool
+```
+

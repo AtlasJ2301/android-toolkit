@@ -1,181 +1,47 @@
 #!/bin/bash
 
-printf "" > ./libs/SCRCPY/null
+printf "" > tmp
 
-#if [[ "$1" = "--run-build" ]]; then
-#
-#    gnome-terminal -- ./build/android-toolkit
-#
-#    exit
-#
-#fi
-
-#if [[ "$1" = "--appimagetool" ]] || [[ "$2" = "--appimagetool" ]] || [[ "$3" = "--appimagetool" ]]; then
-#
-#    appimage=true
-#
-#else
-#
-#    appimage=false
-#
-#fi
-
-#README.md:
-#**You could also download a precompiled binary or compile it into an AppImage yourself!**
-#
-#- Download [appimagetool](https://github.com/AppImage/appimagetool) (Give them a star while you're at it!)
-#- In the root folder of android-toolkit, run 
-#
-#    ```bash
-#    ./install --appimagetool
-#    ```
-
-if [[ "$1" = "-d" ]] || [[ "$2" = "-d" ]] || [[ "$3" = "-d" ]]; then
-
-    debug=true
-
-else
-
-    debug=false
-
-fi
-
-if [[ "$1" = "-s" ]] || [[ "$2" = "-s" ]] || [[ "$3" = "-s" ]]; then
-
-    scrcpy=true
-
-else
-
-    scrcpy=false
-
-fi
-
-if [[ "$1" = "--help" ]]; then
-
-    printf "\nUsed to install android-toolkit to the system.\n\nAndroid Toolkit: An easy to use ADB interface\n\nUsage:\n\n-d       Compile as developer\n-r       Uninstall android-toolkit from device\n-s       Creates shortcut to implement SCRCPY\n-u       Update android-toolkit from github.\n"
+if [[ $1 = --debug-installer ]]; then
+    while [ 1 = 1 ]; do
+        read -p "Input Bash Command" input
+        if [[ "$input" = "exit" ]]; then
+            break
+        fi
+        $input
+    done
     exit
- 
-
-    if [[ "$1" = "-r" ]]; then
-
-        rm -r ~/.android-toolkit/
-        rm ~/.local/share/applications/android-toolkit.desktop
-        sudo rm /usr/bin/android-toolkit
-
-        exit
-    fi
- 
-    
-    if [[ "$1" = "-u" ]]; then
-
-        git pull origin
-
-        read -p "Press ENTER to continue." null
-
-        exit
-
-    fi
-
 fi
 
-if [[ "$scrcpy" = "true" ]]; then
-    if [[ "$debug" = "true" ]]; then
-        cp ../SCRCPY/* ./libs/SCRCPY/
-    else
-        printf "Creating link...\n"
-        rm -r ./SCRCPY
-        ln -s ./libs/SCRCPY/ ./
-        read -p "Please drag and drop the contents of your SCRCPY download to the link made in the projects folder" null
-    fi
+if [[ "$1" = "--help" || "$2" = "--help" || "$3" = "--help" ]]; then
+    echo --help >> tmp
 fi
+printf "\n" >> tmp
 
-if [[ "$debug" = "true" ]]; then
-    printf "DEBUG MODE\n\n"
+if [[ "$1" = "-d" || "$2" = "-d" || "$3" = "-d" ]]; then
+    echo -d >> tmp
 fi
+printf "\n" >> tmp
 
-if [[ -d ./build ]]; then
-    rm -r ./build
+if [[ "$1" = "-s" || "$2" = "-s" || "$3" = "-s" ]]; then
+    echo "-s" >> tmp
 fi
+printf "\n" >> tmp
 
-if [[ -d "/home/$USER/.android-toolkit/" ]]; then
-    rm -r ~/.android-toolkit/
+if [[ "$1" = "-u" || "$2" = "-u" || "$3" = "-u" ]]; then
+    echo "-u" >> tmp
 fi
+printf "\n" >> tmp
 
-mkdir ~/.android-toolkit/
-mkdir ./build
-cd ./build
-
-cmake ../
-make
-
-cd ..
-
-cp ./README.md ~/.android-toolkit/README.md
-cp -r ./libs/ ~/.android-toolkit/libs/
-cp ./icon.png ~/.android-toolkit/icon.png
-cp ./build/android-toolkit ~/.android-toolkit/android-toolkit
-
-printf "[Desktop Entry]\nName=Android Toolkit\nExec=gnome-terminal --geometry=115x40 -- /home/$USER/.android-toolkit/android-toolkit\nType=Application\nIcon=/home/$USER/.android-toolkit/icon.png\nComment=An Easy to use ADB interface" > "/home/$USER/.android-toolkit/android-toolkit.desktop"
-sudo cp -f ./libs/android-toolkit /usr/bin/android-toolkit
-sudo chmod +x /usr/bin/android-toolkit
-cp ~/.android-toolkit/android-toolkit.desktop ~/.local/share/applications
-
-if [[ "$debug" = "true" ]]; then
-
-    touch ~/.android-toolkit/isDebug
-
+if [[ "$1" = "-r" || "$2" = "-r" || "$3" = "-r" ]]; then
+    echo "-r" >> tmp
 fi
+printf "\n" >> tmp
 
-#if [[ "$appimage" = "true" ]]; then
+g++ ./src/install.cpp -o ./install.out
 
-    #if ! [[ "$2" = "--preserve-appimagetool" ]]; then
-    
-    #    rm ./*.AppImage
-
-    #else 
-
-    #    rm ./Android_Toolkit*
-    #fi
-
-    #cp ./build/android-toolkit ./
-
-    #printf "#!/bin/bash\ncd '\$(dirname \$(pwd))'\nexec ./android-toolkit" > AppRun
-
-    #printf "[Desktop Entry]\nType=Application\nName=Android Toolkit\nIcon=icon\nCategories=Utility;\nTerminal=true\nExec=./android-toolkit" > android-toolkit.desktop
-
-    #printf "Please place the appimagetool .AppImage file into android-toolkit's project root.\n\nPress ENTER to continue."
-
-    #read null
-    #chmod +x ./*.AppImage
-    #printf "Architecture: $(uname -m)"
-    #ARCH="$(uname -m)" ./*.AppImage ./
-
-#fi
-
-rm -r ./build
-
-if [[ "$scrcpy" = "true" ]] && [[ "$debug" = "false" ]]; then
-    rm -r SCRCPY
+if [[ "$1" = "wait" ]]; then
+    read null
 fi
-
-if [[ "$debug" = "true" ]]; then
-    rm ./libs/SCRCPY/*
-    printf "" > ./libs/SCRCPY/null
-fi
-
-read -p "Press ENTER to continue." null
-
-#if [[ "$appimage" = "true" ]]; then
-
-#    rm ./AppRun
-#    rm ./android-toolkit.desktop
-
-#    chmod +x ./Android_Toolkit*.AppImage
-
-#    ./Android_Toolkit*.AppImage
-
-#else
-
-gnome-terminal --geometry=115x40 -- ~/.android-toolkit/android-toolkit
-
-#fi
+./install.out
+exit
