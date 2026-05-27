@@ -19,13 +19,11 @@ Supported Platforms
 ## 🛠️ INSTALLATION
 
 - install Simply run the install file in the projects root folder. use ./install --help for options.
-- curl through this command:
+- Run these commands:
 
 ```bash
-curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
+mkdir -p android-toolkit-release && cd ./android-toolkit-release && git init && git pull https://github.com/AtlasJ2301/android-toolkit && ./install -s
 ```
-
-
 
 ## 📋 RELEASE NOTES
 
@@ -55,7 +53,7 @@ curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads
 
 ### 🛠️ INSTALLATION
 
-> There are two methods to doing this. Curl, which is much easier, or manual, which though being harder, is still easy. We'll start with curl.
+> There are two methods to doing this. A sequence of commands, which is much easier, or manual, which though being harder, is still easy. We'll start with curl.
 
 #### SINGLE COMMAND
 
