@@ -5,15 +5,11 @@
 ## ℹ️ INFO
 
 - Application Name: android-toolkit 
-- Version: Beta v1.5.23.b020
+- Version: Beta v1.7.28.b034
 - Release Date: 
 
 Supported Platforms
 - Linux
-
-## 📝 NOTES
-
-If you wish for SCRCPY capabilities, you must compile the source code and obtain the SCRCPY files yourself. To do this, retrieve the files at 'https://github.com/Genymobile/scrcpy/releases' and extract the files, not the folder, to the SCRCPY link folder in the projects root folder before compiling.
 
 ## 🔗 SOURCES
 
@@ -33,7 +29,16 @@ curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads
 
 ## 📋 RELEASE NOTES
 
-**Reformatted README.md**
+**- Reformatted README.md**
+**- Rewrote install in C++**
+**- File Manager: Added Rename feature.**
+**- Added Different Text Colors**
+**- Added Error message for unavailable option on main menu**
+**- Added a header for the main menu**
+**- Made SCRCPY automatically pull and implement itself on install**
+**- Replaced Curl command with sequence of other commands**
+**- Added remove SCRCPY feature to installer**
+
 
 ## ⛓️‍💥 DEPRECATED FILES
 
@@ -52,23 +57,14 @@ curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads
 
 > There are two methods to doing this. Curl, which is much easier, or manual, which though being harder, is still easy. We'll start with curl.
 
-#### 💪 Curl
-
-If you do not have curl installed, run this command:
-
-```bash
-sudo apt install curl
-```
+#### SINGLE COMMAND
 
 > To copy and paste from and to a terminal, instead of just using CTRL + C or CTRL + V, you have to use CTRL + SHIFT + C and CTRL + SHIFT + V.
 
-- sudo: Run as superuser (Lets command be ran with root access).
-- apt: A place to install linux packages from.
-
-From here it is as easy as running a single command:
+It is as easy as running a single command:
 
 ```bash
-curl -fs https://raw.githubusercontent.com/AtlasJ2301/android-toolkit/refs/heads/main/libs/bash.sh | bash
+mkdir -p android-toolkit-release && cd ./android-toolkit-release && git init && git pull https://github.com/AtlasJ2301/android-toolkit && ./install -s
 ```
 
 From here, it will ask for your password, and then Hooray! You now have Android Toolkit installed to your system!

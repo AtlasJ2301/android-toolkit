@@ -4,7 +4,7 @@ printf "" > tmp
 
 if [[ $1 = --debug-installer ]]; then
     while [ 1 = 1 ]; do
-        read -p "Input Bash Command" input
+        read -p "Input Bash Command\n\n> " input
         if [[ "$input" = "exit" ]]; then
             break
         fi
@@ -13,30 +13,11 @@ if [[ $1 = --debug-installer ]]; then
     exit
 fi
 
-if [[ "$1" = "--help" || "$2" = "--help" || "$3" = "--help" ]]; then
-    echo --help >> tmp
-fi
+echo "$1" >> tmp
 printf "\n" >> tmp
-
-if [[ "$1" = "-d" || "$2" = "-d" || "$3" = "-d" ]]; then
-    echo -d >> tmp
-fi
+echo "$2" >> tmp
 printf "\n" >> tmp
-
-if [[ "$1" = "-s" || "$2" = "-s" || "$3" = "-s" ]]; then
-    echo "-s" >> tmp
-fi
-printf "\n" >> tmp
-
-if [[ "$1" = "-u" || "$2" = "-u" || "$3" = "-u" ]]; then
-    echo "-u" >> tmp
-fi
-printf "\n" >> tmp
-
-if [[ "$1" = "-r" || "$2" = "-r" || "$3" = "-r" ]]; then
-    echo "-r" >> tmp
-fi
-printf "\n" >> tmp
+echo "$3" >> tmp
 
 g++ ./src/install.cpp -o ./install.out
 

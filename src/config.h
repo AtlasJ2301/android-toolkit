@@ -39,10 +39,13 @@ std::string home = getenv("HOME");
 std::string user = getenv("USER");
 std::string tmp;
 std::string output;
+std::string androidToolkitAsciiHeader = "   ___     ___   _   __    ____     __    __   __\n  /   \\   |   \\ | | |  \\  |   _|   /  \\  |  | |  \\ \n /  _  \\  | |\\ \\| | |   | |    \\  |    |  ||  |   |\n/__| |__\\ |_| \\___| |__/  |__|\\_\\  \\__/  |__| |__/\n\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n   _____    __     __    _     _  _  __   _____\n  |_   _|  /  \\   /  \\  | |   | |// |  | |_   _|\n    | |   |    | |    | | |_  |  \\   ||    | |\n    |_|    \\__/   \\__/  |___| |_|_\\ |__|   |_|\n\n";
 
 // Conditions
-std::string version = "Beta v1.5.23.b020";
+std::string version = "Beta v1.7.28.b034";
+bool isRemoveScrcpy;
 bool isSCRCPYImplemented;
+bool isError;
 bool isScrcpy;
 bool isUpdate;
 bool isRemove;
@@ -81,4 +84,10 @@ void clear() {
 
 void boldText(std::string boldTextInput) {
     std::cout << "\e[1m" + boldTextInput + "\e[m";
+}
+
+void setTextColor(std::string colorTextColor) {
+    if (colorTextColor == "green") {
+        std::cout << "\x1B[32m";
+    }
 }

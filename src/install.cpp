@@ -4,6 +4,7 @@ bool isDebug;
 
 int main() {
     clear();
+    std::cout << "\e[1m" + androidToolkitAsciiHeader << "Installing Android Toolkit " + version;
     std::ifstream var("tmp");
     while (std::getline(var, output)) {
         if (output == "-d") {
@@ -16,6 +17,8 @@ int main() {
             isRemove = true;
         } if (output == "--help") {
             isHelp = true;
+        } if (output == "--remove-scrcpy") {
+            isRemoveScrcpy = true;
         }
     }
     
@@ -38,23 +41,21 @@ int main() {
     }
 
     if (isUpdate == true) {
-        system("git pull origin");
+        system("git init && git pull https://github.com/AtlasJ2301/android-toolkit");
+
+        return 0;
+    }
+
+    if (isRemoveScrcpy == true) {
+        std::filesystem::remove_all("./libs/SCRCPY/");
 
         return 0;
     }
 
     boldText("Android Toolkit - Install\n\n");
 
-    if (isScrcpy == true) {
-        if (isDebug == true) {
-            system("cp ../SCRCPY/* ./libs/SCRCPY/");
-        } else {
-            system("ln -s ./libs/SCRCPY/ ./");
-            std::cout << "Please copy the contents of your SCRCPY download to the link in the projects root folder.\n\nPress ENTER to continue.";
-
-            std::getline(std::cin, null);
-            std::filesystem::remove("SCRCPY");
-        }
+    if (isScrcpy == true && !std::filesystem::exists("./libs/SCRCPY/")) {
+        system("mkdir ./libs/SCRCPY/ && wget https://github.com/Genymobile/scrcpy/releases/download/v4.0/scrcpy-linux-x86_64-v4.0.tar.gz && tar -xvf scrcpy-linux-*.tar.gz && mv ./scrcpy-linux-*/* ./libs/SCRCPY/ && rm -rf ./scrcpy*");
     }
 
     if (isDebug == true) {
@@ -79,7 +80,7 @@ int main() {
     system("sudo cp -f ./libs/android-toolkit /usr/bin/android-toolkit");
 
     std::ofstream desktopFile(home + "/.android-toolkit/android-toolkit.desktop");
-    desktopFile << "[Desktop Entry]\nName=Android Toolkit\nExec=bash -c 'gnome-terminal --geometry=115x40 -- /home/" + user + "/.android-toolkit/android-toolkit'\nType=Application\nIcon=/home/" + user + "/.android-toolkit/icon.png\nComment=An Easy to use ADB interface";
+    desktopFile << "[Desktop Entry]\nName=Android Toolkit\nExec=bash -c 'gnome-terminal --geometry=115x48 -- /home/" + user + "/.android-toolkit/android-toolkit'\nType=Application\nIcon=/home/" + user + "/.android-toolkit/icon.png\nComment=An Easy to use ADB interface";
     desktopFile.close();
 
     copyOverwrite(home + "/.android-toolkit/android-toolkit.desktop", home + "/.local/share/applications/android-toolkit.desktop");
@@ -90,7 +91,7 @@ int main() {
         system("rm ./libs/SCRCPY/*");
     }
 
-    system("gnome-terminal --geometry=115x40 -- android-toolkit");
+    system("gnome-terminal --geometry=115x48 -- android-toolkit");
 
     std::ofstream("./libs/SCRCPY/null");
 
