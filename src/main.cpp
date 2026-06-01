@@ -1,11 +1,15 @@
 #include "config.h"
 
-int main();
-
-bool isDebug = std::filesystem::exists(home + "/.android-toolkit/isDebug");
+bool isDebug;
 
 int main() {
     clear();
+    std::ifstream conditions(home + "/.android-toolkit/conditions");
+    while (std::getline(conditions, output)) {
+        if (output == "isDebug") {
+            isDebug = true;
+        }
+    }
     setTextColor("green");
     std::cout << "\e[1m" << androidToolkitAsciiHeader;
 
@@ -50,6 +54,7 @@ int main() {
     std::cout << "g1. Display README";
 
     if (isDebug == true) {
+        setTextColor("green");
         boldText("\n\nDeveloper Tools:\n");
         std::cout << "dev. Debug Settings";
     }
@@ -79,7 +84,8 @@ int main() {
                 main();
             } else {
                 setTextColor("green");
-                boldText("Android Toolkit - Pair over WIFI\n\n");
+                boldText("Android Toolkit - Pair over WIFI\n");
+                adbFontFix();
                 cmd = adb + "pair " + ip + ":" + port;
                 system(cmd.c_str());
 
@@ -97,8 +103,9 @@ int main() {
                     main();
                 } else {
                     setTextColor("green");
-                    boldText("Android Toolkit - Pair over WIFI\n\n");
-                    cmd = "clear;" + adb + "connect " + ip + ":" + port;
+                    boldText("Android Toolkit - Pair over WIFI\n");
+                    adbFontFix();
+                    cmd = adb + "connect " + ip + ":" + port;
                     system(cmd.c_str());
 
                     std::cout << "\nPress ENTER to continue.";
@@ -109,7 +116,8 @@ int main() {
         }
     } else if (input == "a2") {
         setTextColor("green");
-        boldText("Android Toolkit - Disconnect ADB Wireless Device\n\n");
+        boldText("Android Toolkit - Disconnect ADB Wireless Device\n");
+        adbFontFix();
         cmd = adb + "devices";
         system(cmd.c_str());
         std::cout << "Choose a device to disconnect.\n\nType 'All' to disconnect all devices\n\n> ";
@@ -123,7 +131,8 @@ int main() {
             }
             clear();
             setTextColor("green");
-            boldText("Android Toolkit - Disconnect ADB Wireless Device\n\n");
+            boldText("Android Toolkit - Disconnect ADB Wireless Device\n");
+            adbFontFix();
             system(cmd.c_str());
 
             std::getline(std::cin, null);
@@ -132,16 +141,18 @@ int main() {
     } else if (input == "a3") {
         clear();
         setTextColor("green");
-        boldText("Android Toolkit - List Devices\n\n");
+        boldText("Android Toolkit - List Devices\n");
         
         cmd = adb + "devices";
+        adbFontFix();
         system(cmd.c_str());
 
         std::getline(std::cin, null);
         main();
     } else if (input == "a4") {
         setTextColor("green");
-        boldText("Android Toolkit - Restart ADB\n\n");
+        boldText("Android Toolkit - Restart ADB\n");
+        adbFontFix();
         cmd = adb + "kill-server";
         system(cmd.c_str());
         cmd = adb + "start-server";
@@ -161,8 +172,9 @@ int main() {
         } else {
             clear();
             setTextColor("green");
-            boldText("Android Toolkit - Install Package\n\n");
+            boldText("Android Toolkit - Install Package\n");
             cmd = adb + "install " + path;
+            adbFontFix();
             system(cmd.c_str());
 
             std::cout << "\nFinished.\n\nPress ENTER to continue.";
@@ -180,9 +192,10 @@ int main() {
         } else {
             clear();
             setTextColor("green");
-            boldText("Android Toolkit - Uninstall Package\n\n");
+            boldText("Android Toolkit - Uninstall Package\n");
 
             cmd = adb + "shell pm uninstall --user 0 " + package;
+            adbFontFix();
             system(cmd.c_str());
 
             std::getline(std::cin, null);
@@ -190,7 +203,8 @@ int main() {
         }
     } if (input == "b3") {
         setTextColor("green");
-        boldText("Android Toolkit - Reinstall Package\n\nPlease provide the name of the system package to be reinstalled.\n\n> ");
+        boldText("Android Toolkit - Reinstall Package\n\n");
+        std::cout << "Please provide the name of the system package to be reinstalled.\n\n> ";
         std::getline(std::cin, package);
 
         if (package == "") {
@@ -198,8 +212,9 @@ int main() {
         } else {
             clear();
             setTextColor("green");
-            boldText("Android Toolkit - Reinstall Package\n\n");
+            boldText("Android Toolkit - Reinstall Package\n");
             cmd = adb + "shell pm install-existing --user 0 " + package;
+            adbFontFix();
             system(cmd.c_str());
 
             std::cout << "Finished.\n\nPress ENTER to continue.";
@@ -210,6 +225,7 @@ int main() {
         setTextColor("green");
         boldText("Android Toolkit - List Packages\n\n");
         cmd = adb + "shell pm list packages";
+        adbFontFix();
         system(cmd.c_str());
         std::cout << "\nNote: If there is an error message at the bottom of the list, this is not bad and simply means that ADB cannot access the work profile.";
 
@@ -218,30 +234,37 @@ int main() {
     } else if (input == "b5") {
         setTextColor("green");
         boldText("Android Toolkit - Debloat\n\n");
-        std::cout << "Choose an Option.\n\na1. OneUI - Low\na2. OneUI - Medium\na3. OneUI - High\n\n> ";
+        std::cout << "Choose an Option.\n\nNote: For security purposes, it is recommended that you choose Medium or High, as Low will not remove some packages that may be a threat to your privacy. To see the list of packages, look for the 'bash.sh' file in the projects source-code.\n\na1. OneUI - Low\na2. OneUI - Medium\na3. OneUI - High\n\n> ";
         std::getline(std::cin, input);
 
+        clear();
         if (input == "") {
             main();
 
         } else if (input == "a1") {
             setTextColor("green");
-            boldText("Android Toolkit - Debloat\n\n");
+            boldText("Android Toolkit - Debloat\n");
+            adbFontFix();
             system("/home/$USER/.android-toolkit/libs/bash.sh oneuiDebloatLow");
+            std::cout << "\nFinished.\n\nPress ENTER to continue.";
             std::getline(std::cin, null);
             main();
 
         } else if (input == "a2") {
             setTextColor("green");
-            boldText("Android Toolkit - Debloat\n\n");
+            boldText("Android Toolkit - Debloat\n");
+            adbFontFix();
             system("/home/$USER/.android-toolkit/libs/bash.sh oneuiDebloatMed");
+            std::cout << "\nFinished.\n\nPress ENTER to continue.";
             std::getline(std::cin, null);
             main();
 
         } else if (input == "a3") {
             setTextColor("green");
-            boldText("Android Toolkit - Debloat\n\n");
+            boldText("Android Toolkit - Debloat\n");
+            adbFontFix();
             system("/home/$USER/.android-toolkit/libs/bash.sh oneuiDebloatHigh");
+            std::cout << "\nFinished.\n\nPress ENTER to continue.";
             std::getline(std::cin, null);
             main();
         }
@@ -272,8 +295,9 @@ int main() {
                     main();
                 } else {
                     setTextColor("green");
-                    boldText("Android Toolkit - Backup / Restore\n\n");
+                    boldText("Android Toolkit - Backup / Restore\n");
                     cmd = adb + "backup -all -f " + path + "/" + backup + ".ab";
+                    adbFontFix();
                     system(cmd.c_str());
 
                     clear();
@@ -318,6 +342,7 @@ int main() {
 
             if (backup != "") {
                 cmd = adb + "restore " + path + "/" + file + ".ab";
+                adbFontFix();
                 system(cmd.c_str());
 
                 std::cout << "\n\nFinished.\n\nPress ENTER to continue.";
@@ -335,8 +360,9 @@ int main() {
         clear();
         if (package != "") {
             setTextColor("green");
-            boldText("Android Toolkit - Open Application\n\n");
-            cmd = adb + "shell am start " + package;
+            boldText("Android Toolkit - Open Application\n");
+            adbFontFix();
+            cmd = adb + "shell monkey -p " + package + " 1";
             system(cmd.c_str());
 
             std::cout << "\nFinished.\n\nPress ENTER to continue.";
@@ -373,8 +399,9 @@ int main() {
                     main();
                 } else {
                     setTextColor("green");
-                    boldText("Android Toolkit - Push / Pull\n\n");
-                    cmd = adb + "push " + file + " sdcard" + path;
+                    boldText("Android Toolkit - Push / Pull\n");
+                    cmd = adb + "push " + file + " sdcard/" + path;
+                    adbFontFix();
                     system(cmd.c_str());
 
                     std::getline(std::cin, null);
@@ -402,8 +429,9 @@ int main() {
                     main();
                 } else {
                     setTextColor("green");
-                    boldText("Android Toolkit - Push / Pull\n\n");
-                    cmd = adb + "pull sdcard" + file + " " + path;
+                    boldText("Android Toolkit - Push / Pull\n");
+                    cmd = adb + "pull sdcard/" + file + " " + path;
+                    adbFontFix();
                     system(cmd.c_str());
 
                     std::getline(std::cin, null);
@@ -412,9 +440,15 @@ int main() {
             }
         }
     } else if (input == "c2") {
+        path = "";
         setTextColor("green");
         boldText("Android Toolkit - File Manager\n\n");
-        while (std::cout << "Please provide a path on the device\n\nNote: The path automatically adds /sdcard/ to the beginning.\nPaths are absolute.\nType Exit to exit.\nType File to open file options.\nType Folder to open folder options.\n\n> " && std::getline(std::cin, path)) {
+        path = "/sdcard/" + path;
+        std::cout << "Current Path: " << path << "\n";
+        cmd = adb + "shell ls -r " + path;
+        adbFontFix();
+        system(cmd.c_str());
+        while (std::cout << "\nPlease provide a path on the device.\n\nNote: The path automatically adds /sdcard/ to the beginning.\nPaths are absolute.\n\n\x1B[32mOptions:\n\e[mType Exit to exit.\nType File to open file options.\nType Folder to open folder options.\n\n> " && std::getline(std::cin, path)) {
             clear();
             if (path == "exit" || path == "Exit") {
                 break;
@@ -639,7 +673,7 @@ int main() {
                 } else {
                     setTextColor("green");
                     boldText("Options Selected:\n");
-                    if (dktp != "") { std::cout << "Desktop mode is on.\n"; } if (uhms != "") { std::cout << "Uhid Mouse is on.\n"; } if (uhkb != "") { std::cout << "Uhid Keyboard is on.\n"; } if (fscr != "") { std::cout << "Fullscreen is on\n"; } if (alot != "") { std::cout << "Always on Top is on\n"; } if (dbau != "") { std::cout << "Audio is on Both Devices\n"; } if (dfps != "") { std::cout << "Display FPS is on\n"; } if (appl != "") { std::cout << "Open Application " << applName << " on start\n"; } if (kdpo != "") { std::cout << "Device Screen will turn Off\n"; } if (kdfs != "") {std::cout << "Device will not Sleep\n"; }
+                    if (cscf != "") { std::cout << "Custom flag(s):" + cscf + "\n"; } if (dktp != "") { std::cout << "Desktop mode is on.\n"; } if (uhms != "") { std::cout << "Uhid Mouse is on.\n"; } if (uhkb != "") { std::cout << "Uhid Keyboard is on.\n"; } if (fscr != "") { std::cout << "Fullscreen is on\n"; } if (alot != "") { std::cout << "Always on Top is on\n"; } if (dbau != "") { std::cout << "Audio is on Both Devices\n"; } if (dfps != "") { std::cout << "Display FPS is on\n"; } if (appl != "") { std::cout << "Open Application " << applName << " on start\n"; } if (kdpo != "") { std::cout << "Device Screen will turn Off\n"; } if (kdfs != "") {std::cout << "Device will not Sleep\n"; }
                 }
                 std::cout << "\n1. Desktop Mode\n2. Uhid Mouse\n3. Uhid Keyboard\n4. Fullscreen\n5. Always on top\n6. Play Audio on Both Devices\n7. Print FPS\n8. Open Application\n9. Turn Device Screen Off\n10. Prevent Screen from Sleeping\n\na. Add custom flag\n\nType Exit to exit.\n\nType Save to save current settings or Load to run SCRCPY with saved settings.\n\nPress ENTER to continue\n\n> ";
                 std::getline(std::cin, input);
@@ -693,11 +727,15 @@ int main() {
                 } else if (input == "10") {
                     if (kdfs == "") { kdfs = " --stay-awake"; } else { kdfs = ""; }
                 } else if (input == "a") {
-                    setTextColor("green");
-                    boldText("Android Toolkit - SCRCPY");
-                    std::cout << "Please provide a flag for SCRCPY\n\n> ";
-                    std::getline(std::cin, input);
-                    cscf = " " + input;
+                    if (cscf == "") {
+                        setTextColor("green");
+                        boldText("Android Toolkit - SCRCPY");
+                        std::cout << "\n\nPlease provide a flag for SCRCPY\n\n> ";
+                        std::getline(std::cin, input);
+                        cscf = " " + input;
+                    } else {
+                        cscf = "";
+                    }
                 } else if (input == "Save" || input == "save") {
                     cmd = "printf '" + dktp + uhms + uhkb + fscr + alot + dbau + dfps + appl + "' > " + home + "/.android-toolkit/SCRCPY-config.txt";
                     system(cmd.c_str());
@@ -761,38 +799,41 @@ int main() {
                 std::getline(std::cin, file);
 
                 clear();
-                if (input == "1") {
+                if (input == "1" && file != "") {
                     setTextColor("green");
-                    boldText("Android Toolkit - Screenshot / Record\n\n");
+                    boldText("Android Toolkit - Screenshot / Record\n");
                     cmd = adb + "shell screencap -p > " + path + "/" + file + ".png";
+                    adbFontFix();
                     system(cmd.c_str());
 
-                    std::cout << "\nIf an error about multiple displays showed, it most likely isn't a problem.\nIf however this is causing a problem, type 'display'.";
+                    std::cout << "\nIf an error about multiple displays showed (Especially prevalent on foldable phones), it most likely isn't a problem.\nIf however this is causing a problem, type 'Display'.\n\nPress ENTER or type 'Display' to continue.\n\n> ";
 
                     std::getline(std::cin, input);
                     clear();
-                    if (input == "display") {
+                    if (input == "display" || input == "Display") {
                         setTextColor("green");
                         boldText("Android Toolkit - Screenshot / Record\n\n");
-                        std::cout << "Please provide a display number (The one to the right of Display).\n\n";
+                        std::cout << "Please provide a display number (The one directly to the right of Display).\n\n";
 
                         cmd = adb + "shell dumpsys SurfaceFlinger --display-id";
                         system(cmd.c_str());
 
-                        std::cout << "\n> ";
+                        std::cout << "\n\n> ";
                         std::getline(std::cin, display);
                         clear();
                         if (display != "") {
                             setTextColor("green");
-                            boldText("Android Toolkit - Screenshot / Record\n\n");
+                            boldText("Android Toolkit - Screenshot / Record\n");
+                            adbFontFix();
                             cmd = adb + "shell screencap -pd > " + path + "/" + file + ".png " + display;
                             system(cmd.c_str());
+                            std::cout << "\nPress ENTER to continue.";
 
                             std::getline(std::cin, null);
                         }
                     }
                     main();
-                } else if (input == "2") {
+                } else if (input == "2" && file != "") {
                     setTextColor("green");
                     boldText("Android Toolkit - Screenshot / Record\n\n");
                     cmd = adb + "pull /sdcard/tmp/tmp.mp4 " + path + "/" + file + ".mp4"; 

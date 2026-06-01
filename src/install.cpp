@@ -1,33 +1,39 @@
 #include "config.h"
 
+// To compile this, from the android toolkit root folder, run "g++ ./src/install.cpp -o ./install"
+
 bool isDebug;
 
-int main() {
+int main(int argc, char* argv[]) {
     clear();
-    std::cout << "\e[1m" + androidToolkitAsciiHeader << "Installing Android Toolkit " + version;
-    std::ifstream var("tmp");
-    while (std::getline(var, output)) {
-        if (output == "-d") {
+    setTextColor("green");
+    boldText("Android Toolkit - Install\n\n" + androidToolkitAsciiHeader + "Installing Android Toolkit " + version);
+    
+    int i = 1;
+
+    while (i < argc) {
+        if (std::string(argv[i]) == "-d") {
             isDebug = true;
-        } if (output == "-s") {
+        } if (std::string(argv[i]) == "-s") {
             isScrcpy = true;
-        } if (output == "-u") {
+        } if (std::string(argv[i]) == "-u") {
             isUpdate = true;
-        } if (output == "-r") {
+        } if (std::string(argv[i]) == "--use-system-adb") {
+            isUseSystemAdb = true;
+        } if (std::string(argv[i]) == "-r") {
             isRemove = true;
-        } if (output == "--help") {
+        } if (std::string(argv[i]) == "--help") {
             isHelp = true;
-        } if (output == "--remove-scrcpy") {
+        } if (std::string(argv[i]) == "--remove-scrcpy") {
             isRemoveScrcpy = true;
         }
+
+        i++;
     }
-    
-    std::remove("tmp");
 
     if (isHelp == true) {
-        std::cout << "\nUsed to install android-toolkit to the system.\n\nAndroid Toolkit: An easy to use ADB interface\n\nUsage:\n\n-d       Compile as developer\n-r       Uninstall android-toolkit from device\n-s       Prompts for the addition of SCRCPY.\n-u       Update android-toolkit from github.\n";
+        std::cout << "\nUsed to install android-toolkit to the system.\n\nAndroid Toolkit: An easy to use ADB interface\n\nUsage:\n\n-d                  Compile as developer\n  --help            Displays this page\n-r                  Uninstall android-toolkit from device\n  --remove-scrcpy   Removes cached SCRCPY download\n-s                  Prompts for the addition of SCRCPY.\n-u                  Update android-toolkit from github.\n";
     
-        std::remove("install.out");
         return 0;
     }
 
@@ -52,17 +58,18 @@ int main() {
         return 0;
     }
 
-    boldText("Android Toolkit - Install\n\n");
-
     if (isScrcpy == true && !std::filesystem::exists("./libs/SCRCPY/")) {
         system("mkdir ./libs/SCRCPY/ && wget https://github.com/Genymobile/scrcpy/releases/download/v4.0/scrcpy-linux-x86_64-v4.0.tar.gz && tar -xvf scrcpy-linux-*.tar.gz && mv ./scrcpy-linux-*/* ./libs/SCRCPY/ && rm -rf ./scrcpy*");
     }
 
-    if (isDebug == true) {
-        std::cout << "Debug Mode\n\n";
-    }
-
     mkdir(home + "/.android-toolkit/", true);
+
+    std::ofstream conditions(home + "/.android-toolkit/conditions");
+
+    if (isDebug == true) {
+        conditions << "isDebug";
+        std::cout << "\n\nDebug Mode\n\n";
+    }
 
     mkdir("./build", true);
 
@@ -70,12 +77,11 @@ int main() {
 
     std::filesystem::copy("./README.md", home + "/.android-toolkit/README.md");
     std::filesystem::copy("./libs/", home + "/.android-toolkit/libs/");
-    std::filesystem::copy("./libs/SCRCPY/", home + "/.android-toolkit/libs/SCRCPY/");
     std::filesystem::copy("./icon.png", home + "/.android-toolkit/icon.png");
     std::filesystem::copy("./build/android-toolkit", home + "/.android-toolkit/android-toolkit");
-
-    std::ofstream("./libs/SCRCPY/null");
-    std::remove("install.out");
+    if (isScrcpy == true) {
+        std::filesystem::copy("./libs/SCRCPY/", home + "/.android-toolkit/libs/SCRCPY/");
+    }
 
     system("sudo cp -f ./libs/android-toolkit /usr/bin/android-toolkit");
 
@@ -87,13 +93,9 @@ int main() {
 
     std::filesystem::remove_all("./build/");
 
-    if (isDebug == true) {
-        system("rm ./libs/SCRCPY/*");
-    }
+    conditions.close();
 
     system("gnome-terminal --geometry=115x48 -- android-toolkit");
-
-    std::ofstream("./libs/SCRCPY/null");
 
     return 0;
 }

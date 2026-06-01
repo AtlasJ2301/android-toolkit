@@ -5,7 +5,8 @@
 ## ℹ️ INFO
 
 - Application Name: android-toolkit 
-- Version: Beta v1.7.28.b034
+- Version: Beta v1.9.29.b037
+- In Development. Not ready for general use.
 - Release Date: 
 
 Supported Platforms
@@ -28,7 +29,8 @@ mkdir -p android-toolkit-release && cd ./android-toolkit-release && git init && 
 ## 📋 RELEASE NOTES
 
 **- Reformatted README.md**
-**- Rewrote install in C++**
+**- Rewrote install entirely in C++**
+**- Rewrote terminal command entirely in C++**
 **- File Manager: Added Rename feature.**
 **- Added Different Text Colors**
 **- Added Error message for unavailable option on main menu**
@@ -36,6 +38,9 @@ mkdir -p android-toolkit-release && cd ./android-toolkit-release && git init && 
 **- Made SCRCPY automatically pull and implement itself on install**
 **- Replaced Curl command with sequence of other commands**
 **- Added remove SCRCPY feature to installer**
+**- Changed install from using mkdir to std::filesystem::create_directory**
+
+**- Screen Record needs fixed**
 
 
 ## ⛓️‍💥 DEPRECATED FILES
@@ -180,3 +185,5 @@ From here, all you have to do is open the install file with an argument:
 - add appimage support
 
 - add detection and support for windows or OSX
+
+- Make program recognize up and down keys to select options

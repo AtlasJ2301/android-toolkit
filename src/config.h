@@ -40,16 +40,22 @@ std::string user = getenv("USER");
 std::string tmp;
 std::string output;
 std::string androidToolkitAsciiHeader = "   ___     ___   _   __    ____     __    __   __\n  /   \\   |   \\ | | |  \\  |   _|   /  \\  |  | |  \\ \n /  _  \\  | |\\ \\| | |   | |    \\  |    |  ||  |   |\n/__| |__\\ |_| \\___| |__/  |__|\\_\\  \\__/  |__| |__/\n\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n   _____    __     __    _     _  _  __   _____\n  |_   _|  /  \\   /  \\  | |   | |// |  | |_   _|\n    | |   |    | |    | | |_  |  \\   ||    | |\n    |_|    \\__/   \\__/  |___| |_|_\\ |__|   |_|\n\n";
+std::string cmdPrefix;
 
 // Conditions
-std::string version = "Beta v1.7.28.b034";
+std::string version = "Beta v1.9.28.b036";
 bool isRemoveScrcpy;
+bool isUseSystemAdb;
 bool isSCRCPYImplemented;
 bool isError;
 bool isScrcpy;
 bool isUpdate;
 bool isRemove;
 bool isHelp;
+
+void adbFontFix() {
+    std::cout << "\e[m\n";
+}
 
 void copyOverwrite(std::string copyOverwritePathFrom, std::string copyOverwritePathTo) {
     if (std::filesystem::exists(copyOverwritePathTo)) {
@@ -60,22 +66,14 @@ void copyOverwrite(std::string copyOverwritePathFrom, std::string copyOverwriteP
 
 void mkdir(std::string mkdirPath, bool overwrite) {
     if (std::filesystem::exists(mkdirPath) == false) {
-        cmd = "mkdir " + mkdirPath;
-        system(cmd.c_str());
+        std::filesystem::create_directory(mkdirPath);
     } else if (overwrite == true) {
-        cmd = "rm -rf " + mkdirPath;
-        system(cmd.c_str());
-        cmd = "mkdir " + mkdirPath;
-        system(cmd.c_str());
+        std::filesystem::remove_all(mkdirPath);
+        std::filesystem::create_directory(mkdirPath);
 
     } else {
         std::cerr << "\e[1mError: Folder already exists.\e[m";
     }
-}
-
-void cp(std::string cpFrom, std::string cpTo) {
-    cmd = "cp " + cpFrom + " " + cpTo;
-    system(cmd.c_str());
 }
 
 void clear() {
@@ -89,5 +87,7 @@ void boldText(std::string boldTextInput) {
 void setTextColor(std::string colorTextColor) {
     if (colorTextColor == "green") {
         std::cout << "\x1B[32m";
+    } else if (colorTextColor == "clear") {
+        std::cout << "\e[m";
     }
 }
